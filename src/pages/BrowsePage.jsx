@@ -4,6 +4,7 @@ import { useAgents } from '../hooks/useAgents.js';
 import { filterAgents } from '../utils/filterAgents.js';
 import { usePageTitle } from '../hooks/usePageTitle.js';
 import { useSearch } from '../context/SearchProvider.jsx';
+import { useAuth } from '../context/AuthProvider.jsx';
 import { AgentRow } from '../components/browse/AgentRow.jsx';
 import { FilterBar } from '../components/browse/FilterBar.jsx';
 import { ReelsSidebar } from '../components/browse/ReelsSidebar.jsx';
@@ -14,23 +15,32 @@ export function BrowsePage() {
   usePageTitle('Agents');
   const { agents, categories, loading } = useAgents();
   const { q } = useSearch();
+  const { authed } = useAuth();
   const [cat, setCat] = useState('All');
   const [sort, setSort] = useState('popular');
   const [tag, setTag] = useState(null);
   const list = filterAgents(agents, { q, category: cat, sort, tag });
   const clear = () => { setCat('All'); setTag(null); };
 
-  if (loading) return <div className="browse-shell"><div className="browse-main"><Skeleton lines={5} /></div></div>;
+  const body = loading ? (
+    <div className="browse-main"><Skeleton lines={5} /></div>
+  ) : (
+    <div className="browse-main">
+      <FilterBar categories={categories} cat={cat} onCat={setCat} sort={sort} onSort={setSort} tag={tag} onClearTag={() => setTag(null)} />
+      {list.length === 0 ? (
+        <EmptyState title="No agents found" hint="Try adjusting your search or filters." onClear={clear} />
+      ) : (
+        <div className="model-list">{list.map((a) => <AgentRow key={a.id} agent={a} onTagClick={setTag} />)}</div>
+      )}
+    </div>
+  );
 
   return (
     <div className="browse-shell">
-      <div className="browse-main">
-        <FilterBar categories={categories} cat={cat} onCat={setCat} sort={sort} onSort={setSort} tag={tag} onClearTag={() => setTag(null)} />
-        {list.length === 0 ? (
-          <EmptyState title="No agents found" hint="Try adjusting your search or filters." onClear={clear} />
-        ) : (
-          <div className="model-list">{list.map((a) => <AgentRow key={a.id} agent={a} onTagClick={setTag} />)}</div>
-        )}
+      <div className={`browse-layout${authed ? ' browse-layout--authed' : ''}`}>
+        <div className="browse-rail">{body}</div>
+        <div className="browse-theme-spacer" aria-hidden="true" />
+        <div className="browse-extra-spacer" aria-hidden="true" />
       </div>
       <ReelsSidebar />
     </div>

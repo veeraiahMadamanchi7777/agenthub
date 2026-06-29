@@ -5,6 +5,7 @@ import { ToastProvider } from '../context/ToastProvider.jsx';
 import { AuthProvider } from '../context/AuthProvider.jsx';
 import { BootProvider } from '../context/BootProvider.jsx';
 import { SearchProvider } from '../context/SearchProvider.jsx';
+import { SidebarProvider } from '../context/SidebarProvider.jsx';
 
 export function Providers({ children }) {
   return (
@@ -13,7 +14,9 @@ export function Providers({ children }) {
         <ToastProvider>
           <AuthProvider>
             <BootProvider>
-              <SearchProvider>{children}</SearchProvider>
+              <SearchProvider>
+                <SidebarProvider>{children}</SidebarProvider>
+              </SearchProvider>
             </BootProvider>
           </AuthProvider>
         </ToastProvider>

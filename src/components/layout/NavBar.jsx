@@ -1,8 +1,7 @@
-/** Top nav — search centered between logo and theme toggle. */
+/** Top nav — search centered between sidebar and theme toggle. */
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthProvider.jsx';
 import { useSearch } from '../../context/SearchProvider.jsx';
-import { Logo } from './Logo.jsx';
 import { ThemeToggle } from '../ui/ThemeToggle.jsx';
 
 export function NavBar() {
@@ -11,13 +10,11 @@ export function NavBar() {
   const { q, setQ } = useSearch();
   const isHome = pathname === '/';
 
-  return (
-    <header className="navbar">
-      <nav className={`navbar-inner${isHome ? ' navbar-inner--home' : ''}`}>
-        <Logo />
-
-        {isHome && (
-          <div className="navbar-search-center">
+  if (isHome) {
+    return (
+      <header className="navbar">
+        <nav className="navbar-inner navbar-inner--home">
+          <div className="navbar-search-rail">
             <div className="navbar-search-form">
               <div className="navbar-search">
                 <span className="navbar-search-icon-wrap" aria-hidden="true">
@@ -36,10 +33,22 @@ export function NavBar() {
               </div>
             </div>
           </div>
-        )}
+          <div className="navbar-theme-slot"><ThemeToggle /></div>
+          <div className={`navbar-extra${authed ? ' navbar-extra--authed' : ''}`}>
+            {!authed && (
+              <button className="nav-btn-ghost" onClick={() => setAuthOpen(true)}>Sign in</button>
+            )}
+            <button className="nav-btn-dark" onClick={() => setRegisterOpen(true)}>Register agent</button>
+          </div>
+        </nav>
+      </header>
+    );
+  }
 
-        {!isHome && <div className="navbar-spacer" aria-hidden="true" />}
-
+  return (
+    <header className="navbar">
+      <nav className="navbar-inner">
+        <div className="navbar-spacer" aria-hidden="true" />
         <div className="navbar-right">
           <ThemeToggle />
           {!authed && (
