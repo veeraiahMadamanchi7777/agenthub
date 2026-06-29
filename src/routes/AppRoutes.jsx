@@ -10,6 +10,7 @@ import { SessionPage } from '../pages/SessionPage.jsx';
 import { EmbeddedSessionPage } from '../pages/EmbeddedSessionPage.jsx';
 import { StudioPage } from '../pages/StudioPage.jsx';
 import { AskPage } from '../pages/AskPage.jsx';
+import { SetupPage } from '../pages/SetupPage.jsx';
 import { AuthModal } from '../components/auth/AuthModal.jsx';
 import { RegisterModal } from '../components/auth/RegisterModal.jsx';
 import { BootModal } from '../components/boot/BootModal.jsx';
@@ -28,6 +29,7 @@ export function AppRoutes() {
           <Route path="/sessions/:id" element={<SessionPage />} />
           <Route path="/sessions/embed/:slug" element={<EmbeddedSessionPage />} />
           <Route path="/ask" element={<AskPage />} />
+          <Route path="/setup" element={<SetupPage />} />
           <Route path="/studio" element={<StudioPage />} />
         </Routes>
       </AppShell>
