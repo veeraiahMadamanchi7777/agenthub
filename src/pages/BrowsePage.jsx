@@ -20,7 +20,7 @@ export function BrowsePage() {
   const list = filterAgents(agents, { q, category: cat, sort, tag });
   const clear = () => { setCat('All'); setTag(null); };
 
-  if (loading) return <div className="browse-shell"><Skeleton lines={5} /></div>;
+  if (loading) return <div className="browse-shell"><div className="browse-main"><Skeleton lines={5} /></div></div>;
 
   return (
     <div className="browse-shell">

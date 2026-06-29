@@ -1,11 +1,9 @@
-/** Agent wiki mock API. */
-import { fetchMock } from './mockClient.js';
+/** Agent wiki — loads README markdown from public/readmes. */
+import { getReadmePath } from '../utils/readme.js';
 
-export async function getWikiIndex() {
-  return fetchMock('wiki.json');
-}
-
-export async function getWikiEntry(slug) {
-  const wiki = await getWikiIndex();
-  return wiki[slug] ?? null;
+export async function fetchReadme(agentOrSlug) {
+  const path = getReadmePath(agentOrSlug);
+  const res = await fetch(path);
+  if (!res.ok) return null;
+  return res.text();
 }

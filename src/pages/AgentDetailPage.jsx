@@ -1,7 +1,7 @@
 /** Agent detail page with full info + Run CTA. */
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAgents } from '../hooks/useAgents.js';
-import { useWiki } from '../hooks/useWiki.js';
+import { useReadme } from '../hooks/useReadme.js';
 import { usePageTitle } from '../hooks/usePageTitle.js';
 import { CapTag } from '../components/ui/CapTag.jsx';
 import { ModelTag } from '../components/ui/ModelTag.jsx';
@@ -17,15 +17,16 @@ import { useBoot } from '../context/BootProvider.jsx';
 export function AgentDetailPage() {
   const { slug } = useParams();
   const { agents, loading } = useAgents();
-  const { wiki, loading: lw } = useWiki();
   const a = agents.find((x) => x.slug === slug);
-  const w = wiki[slug];
+  const { summary, loading: lr } = useReadme(slug, a);
   usePageTitle(a?.name);
   const { requireAuth } = useAuth();
   const { openBoot } = useBoot();
   const nav = useNavigate();
-  if (loading || lw) return <main className="page"><Skeleton lines={5} /></main>;
+
+  if (loading || lr) return <main className="page"><Skeleton lines={5} /></main>;
   if (!a) return <main className="page"><p className="muted">Agent not found.</p></main>;
+
   return (
     <main className="page">
       <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: a.name }]} />
@@ -33,23 +34,16 @@ export function AgentDetailPage() {
         <div className="detail-top">
           <AgentAvatar agent={a} />
           <div>
-            <h1 className="page-title mono">{a.name}</h1>
+            <h1 className="page-title">{a.name}</h1>
             <p className="page-subtitle">by {a.author} · {a.category}</p>
           </div>
         </div>
         <AgentStats agent={a} />
-        <p className="detail-desc">{a.desc}</p>
-        {w?.whatItDoes && <p className="detail-desc">{w.whatItDoes}</p>}
+        <p className="detail-desc">{summary || a.desc}</p>
         <div className="detail-tags">
           {a.caps.map((c) => <CapTag key={c} label={c} />)}
           {a.models.map((m) => <ModelTag key={m} label={m} />)}
         </div>
-        {w?.examples && (
-          <div className="detail-examples">
-            <h3>Example prompts</h3>
-            <ul>{w.examples.map((e, i) => <li key={i}>{e}</li>)}</ul>
-          </div>
-        )}
         <div className="flex-row">
           <PrimaryBtn onClick={() => requireAuth(() => openBoot(a))} disabled={!a.runnable}>Run agent</PrimaryBtn>
           <Link to={`/wiki/${slug}`}><GhostBtn>View wiki</GhostBtn></Link>

@@ -1,0 +1,88 @@
+/** Wiki — docs index and full-page README rendering. */
+
+/* ── Index ── */
+.wiki-index{width:100%;max-width:960px;margin:0 auto;padding:32px 40px 64px}
+.wiki-index-head{margin-bottom:28px}
+.wiki-index-title{margin:0 0 6px;font-size:28px;font-weight:700;letter-spacing:-.03em}
+.wiki-index-sub{margin:0;color:var(--tx-m);font-size:15px}
+.wiki-index-search{position:relative;margin-bottom:36px}
+.wiki-index-search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--tx-d);pointer-events:none}
+.wiki-index-search-input{
+  width:100%;padding:10px 16px 10px 40px;border:none;border-radius:9999px;
+  background:rgba(0,0,0,.05);color:var(--tx);font-size:15px;
+}
+[data-theme="dark"] .wiki-index-search-input{background:rgba(255,255,255,.06)}
+.wiki-index-search-input:focus{outline:none;background:var(--bg-hover)}
+.wiki-index-search-input::placeholder{color:var(--tx-d)}
+
+.wiki-cat{margin-bottom:36px}
+.wiki-cat-title{margin:0 0 14px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--tx-d)}
+.wiki-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+
+.wiki-card{
+  display:flex;flex-direction:column;gap:10px;padding:20px 22px;
+  border:1px solid var(--bd);border-radius:14px;background:var(--bg);
+  cursor:pointer;text-align:left;transition:border-color .15s,background .15s;
+}
+.wiki-card:hover{border-color:var(--bd-strong);background:var(--bg-soft)}
+.wiki-card:focus-visible{outline:2px solid var(--bd-strong);outline-offset:2px}
+.wiki-card-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.wiki-card-name{margin:0;font-size:17px;font-weight:600;letter-spacing:-.01em;color:var(--tx)}
+.wiki-card-cat{font-size:11px;font-weight:500;color:var(--tx-d);padding:3px 8px;border-radius:9999px;border:1px solid var(--bd);white-space:nowrap}
+.wiki-card-desc{margin:0;font-size:14px;color:var(--tx-m);line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.wiki-card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:4px}
+.wiki-card-link{font-size:13px;font-weight:500;color:var(--tx-d)}
+.wiki-card:hover .wiki-card-link{color:var(--tx)}
+
+/* ── Doc page (full README) ── */
+.wiki-page{display:flex;flex-direction:column;min-height:calc(100vh - 56px);width:100%}
+.wiki-doc-header{
+  flex-shrink:0;display:flex;align-items:center;gap:16px;padding:14px 32px;
+  border-bottom:1px solid var(--bd);background:var(--bg);position:sticky;top:56px;z-index:10;
+}
+.wiki-doc-back{
+  display:flex;align-items:center;justify-content:center;width:32px;height:32px;
+  border-radius:8px;border:1px solid var(--bd);color:var(--tx-m);cursor:pointer;flex-shrink:0;
+}
+.wiki-doc-back:hover{background:var(--bg-hover);color:var(--tx)}
+.wiki-doc-meta{flex:1;min-width:0}
+.wiki-doc-name{margin:0;font-size:15px;font-weight:600;color:var(--tx)}
+.wiki-doc-sub{font-size:12px;color:var(--tx-d);margin-top:2px}
+.wiki-doc-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+
+.wiki-doc-body{flex:1;width:100%;padding:40px 32px 80px}
+.wiki-doc-inner{max-width:720px;margin:0 auto}
+
+.wiki-readme .markdown-body{font-size:16px;line-height:1.75;color:var(--tx-m)}
+.wiki-readme .markdown-body > *:first-child{margin-top:0}
+.wiki-readme .markdown-body h1{
+  font-size:36px;font-weight:700;letter-spacing:-.03em;color:var(--tx);
+  margin:0 0 20px;padding-bottom:20px;border-bottom:1px solid var(--bd);
+}
+.wiki-readme .markdown-body h2{
+  font-size:20px;font-weight:600;color:var(--tx);margin:40px 0 12px;letter-spacing:-.01em;
+}
+.wiki-readme .markdown-body h3{font-size:16px;font-weight:600;color:var(--tx);margin:28px 0 8px}
+.wiki-readme .markdown-body p{margin:0 0 16px}
+.wiki-readme .markdown-body ul,.wiki-readme .markdown-body ol{margin:0 0 16px;padding-left:22px}
+.wiki-readme .markdown-body li{margin-bottom:6px}
+.wiki-readme .markdown-body li::marker{color:var(--tx-d)}
+.wiki-readme .markdown-body strong{color:var(--tx);font-weight:600}
+.wiki-readme .markdown-body code{
+  font-family:'JetBrains Mono',monospace;font-size:.88em;
+  background:var(--bg-hover);padding:2px 7px;border-radius:5px;color:var(--tx);
+}
+.wiki-readme .markdown-body pre{
+  background:var(--bg-soft);border:1px solid var(--bd);border-radius:10px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0 20px;
+}
+.wiki-readme .markdown-body pre code{background:none;padding:0;font-size:13px;line-height:1.6}
+.wiki-readme .markdown-body table{width:100%;border-collapse:collapse;margin:16px 0 24px;font-size:14px}
+.wiki-readme .markdown-body th,.wiki-readme .markdown-body td{
+  padding:10px 14px;border:1px solid var(--bd);text-align:left;vertical-align:top;
+}
+.wiki-readme .markdown-body th{background:var(--bg-soft);font-weight:600;color:var(--tx)}
+.wiki-readme .markdown-body hr{border:none;border-top:1px solid var(--bd);margin:32px 0}
+
+.ask-page .ask-input{min-height:120px;margin-bottom:16px;border-radius:12px}
+.wiki-empty .page-title{margin-bottom:12px}

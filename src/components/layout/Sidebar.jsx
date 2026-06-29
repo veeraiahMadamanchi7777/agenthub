@@ -1,4 +1,4 @@
-/** Left sidebar — Sessions, Wiki, Studio. */
+/** Left sidebar — Sessions, Wiki, Ask. */
 import { SIDEBAR_ITEMS } from '../../constants/nav.js';
 import { useAuth } from '../../context/AuthProvider.jsx';
 import { useSessions } from '../../hooks/useSessions.js';
