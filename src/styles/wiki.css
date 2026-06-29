@@ -85,4 +85,75 @@
 .wiki-readme .markdown-body hr{border:none;border-top:1px solid var(--bd);margin:32px 0}
 
 .ask-page .ask-input{min-height:120px;margin-bottom:16px;border-radius:12px}
+
+/* ── Ask page ── */
+.ask-search-wrap{
+  position:relative;display:flex;align-items:center;margin-bottom:20px;
+  background:rgba(0,0,0,.05);border:1px solid var(--search-bd);border-radius:9999px;
+}
+[data-theme="dark"] .ask-search-wrap{background:rgba(255,255,255,.06)}
+.ask-search-icon{flex-shrink:0;margin-left:16px;color:var(--tx-d)}
+.ask-search-input{
+  flex:1;padding:12px 18px 12px 10px;border:0;background:transparent;
+  color:var(--tx);font-size:15px;border-radius:9999px;
+}
+.ask-search-input:focus{outline:none}
+.ask-search-input::placeholder{color:var(--tx-d)}
+
+.ask-wiki-section{margin-bottom:24px}
+.ask-wiki-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.ask-wiki-label{font-size:13px;font-weight:600;color:var(--tx-m);text-transform:uppercase;letter-spacing:.04em}
+.ask-wiki-add{
+  padding:6px 14px;border-radius:9999px;border:1px solid var(--bd);background:var(--bg);
+  color:var(--tx);font-size:13px;font-weight:500;transition:background .15s;
+}
+.ask-wiki-add:hover{background:var(--bg-hover)}
+.ask-wiki-selected{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.ask-wiki-hint{margin:0;font-size:13px;color:var(--tx-d)}
+
+.ask-wiki-chip{
+  display:inline-flex;align-items:center;gap:8px;padding:6px 8px 6px 12px;
+  border:1px solid var(--bd);border-radius:9999px;background:var(--bg-soft);font-size:13px;
+}
+.ask-wiki-chip-name{font-weight:600;color:var(--tx)}
+.ask-wiki-chip-cat{font-size:11px;color:var(--tx-d);padding:2px 8px;border-radius:9999px;background:var(--bg-hover)}
+.ask-wiki-chip-remove{
+  width:22px;height:22px;border-radius:9999px;display:flex;align-items:center;justify-content:center;
+  color:var(--tx-d);font-size:16px;line-height:1;transition:background .15s,color .15s;
+}
+.ask-wiki-chip-remove:hover{background:var(--bg-hover);color:var(--tx)}
+
+.ask-wiki-picker{
+  border:1px solid var(--bd);border-radius:14px;background:var(--bg);overflow:hidden;
+  box-shadow:0 8px 24px rgba(0,0,0,.06);
+}
+[data-theme="dark"] .ask-wiki-picker{box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.ask-wiki-picker-head{
+  display:flex;align-items:center;justify-content:space-between;padding:12px 14px;
+  border-bottom:1px solid var(--bd);background:var(--bg-soft);
+}
+.ask-wiki-picker-title{font-size:14px;font-weight:600;color:var(--tx)}
+.ask-wiki-picker-close{
+  width:28px;height:28px;border-radius:8px;color:var(--tx-d);font-size:18px;line-height:1;
+}
+.ask-wiki-picker-close:hover{background:var(--bg-hover);color:var(--tx)}
+.ask-wiki-picker-search{
+  display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--bd);
+}
+.ask-wiki-picker-search svg{color:var(--tx-d);flex-shrink:0}
+.ask-wiki-picker-input{
+  flex:1;border:0;background:transparent;color:var(--tx);font-size:14px;padding:4px 0;
+}
+.ask-wiki-picker-input:focus{outline:none}
+.ask-wiki-picker-input::placeholder{color:var(--tx-d)}
+.ask-wiki-picker-list{list-style:none;margin:0;padding:6px;max-height:240px;overflow-y:auto}
+.ask-wiki-picker-empty{padding:16px;text-align:center;font-size:13px;color:var(--tx-d)}
+.ask-wiki-picker-item{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;
+  padding:10px 12px;border-radius:10px;text-align:left;transition:background .15s;
+}
+.ask-wiki-picker-item:hover{background:var(--bg-hover)}
+.ask-wiki-picker-item-name{font-size:14px;font-weight:500;color:var(--tx)}
+.ask-wiki-picker-item-cat{font-size:11px;color:var(--tx-d);padding:2px 8px;border-radius:9999px;border:1px solid var(--bd);white-space:nowrap}
+
 .wiki-empty .page-title{margin-bottom:12px}
