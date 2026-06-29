@@ -1,0 +1,243 @@
+[
+  {
+    "id": 1,
+    "slug": "deepresearch",
+    "name": "deepresearch",
+    "author": "agentic-labs",
+    "desc": "Autonomous deep research agent that crawls the web, synthesizes sources, and produces structured reports with inline citations.",
+    "pulls": "89.2K",
+    "updated": "3w ago",
+    "category": "Research",
+    "caps": [
+      "web-search",
+      "long-form"
+    ],
+    "models": [
+      "GPT-4o",
+      "Claude"
+    ],
+    "runnable": true,
+    "verified": true,
+    "color": "#6366f1"
+  },
+  {
+    "id": 2,
+    "slug": "codeweaver",
+    "name": "codeweaver",
+    "author": "autonomous-dev",
+    "desc": "Full-stack coding agent. Reads your repo, plans changes across files, writes tests, and opens a pull request.",
+    "pulls": "67.1K",
+    "updated": "5d ago",
+    "category": "Coding",
+    "caps": [
+      "tools",
+      "github"
+    ],
+    "models": [
+      "Claude",
+      "Sonnet"
+    ],
+    "runnable": true,
+    "verified": true,
+    "color": "#22c55e"
+  },
+  {
+    "id": 3,
+    "slug": "data-scout",
+    "name": "data-scout",
+    "author": "mlops-collective",
+    "desc": "Drop a CSV or connect a database. Profiles your dataset, identifies patterns, runs statistical tests, and generates interactive visualizations.",
+    "pulls": "45.8K",
+    "updated": "2w ago",
+    "category": "Data",
+    "caps": [
+      "charts",
+      "pandas"
+    ],
+    "models": [
+      "Sonnet",
+      "GPT-4o-mini"
+    ],
+    "runnable": true,
+    "verified": true,
+    "color": "#f59e0b"
+  },
+  {
+    "id": 4,
+    "slug": "infra-sentinel",
+    "name": "infra-sentinel",
+    "author": "cloudops-agents",
+    "desc": "Connects to AWS/GCP/Azure, watches metrics and logs, correlates anomalies across services, and can auto-scale or rollback with approval.",
+    "pulls": "38.4K",
+    "updated": "1w ago",
+    "category": "DevOps",
+    "caps": [
+      "tools",
+      "monitoring"
+    ],
+    "models": [
+      "GPT-4o"
+    ],
+    "runnable": false,
+    "verified": true,
+    "color": "#ef4444"
+  },
+  {
+    "id": 5,
+    "slug": "market-pulse",
+    "name": "market-pulse",
+    "author": "fintech-agents",
+    "desc": "Tracks SEC filings, earnings calls, and news sentiment in real time. Generates daily briefings and alerts on significant moves.",
+    "pulls": "31.2K",
+    "updated": "4d ago",
+    "category": "Finance",
+    "caps": [
+      "real-time",
+      "SEC"
+    ],
+    "models": [
+      "GPT-4o"
+    ],
+    "runnable": false,
+    "verified": false,
+    "color": "#14b8a6"
+  },
+  {
+    "id": 6,
+    "slug": "customer-agent",
+    "name": "customer-agent",
+    "author": "supportflow",
+    "desc": "Ingests your knowledge base, answers common questions, creates tickets for complex issues, and escalates to humans when confidence is low.",
+    "pulls": "23.9K",
+    "updated": "3d ago",
+    "category": "Support",
+    "caps": [
+      "RAG",
+      "zendesk"
+    ],
+    "models": [
+      "GPT-4o-mini"
+    ],
+    "runnable": false,
+    "verified": true,
+    "color": "#ec4899"
+  },
+  {
+    "id": 7,
+    "slug": "legal-reviewer",
+    "name": "legal-reviewer",
+    "author": "contract-ai",
+    "desc": "Parses contracts, flags non-standard clauses, compares against your playbook, and suggests redline edits.",
+    "pulls": "12.1K",
+    "updated": "1mo ago",
+    "category": "Legal",
+    "caps": [
+      "PDF",
+      "compliance"
+    ],
+    "models": [
+      "Claude"
+    ],
+    "runnable": false,
+    "verified": false,
+    "color": "#8b5cf6"
+  },
+  {
+    "id": 8,
+    "slug": "doc-translator",
+    "name": "doc-translator",
+    "author": "polyglot-ai",
+    "desc": "Handles Markdown, MDX, and HTML documentation. Preserves code blocks untranslated, maintains internal link structure, supports 40+ languages.",
+    "pulls": "15.6K",
+    "updated": "2w ago",
+    "category": "Translation",
+    "caps": [
+      "i18n",
+      "markdown"
+    ],
+    "models": [
+      "Claude"
+    ],
+    "runnable": false,
+    "verified": true,
+    "color": "#0ea5e9"
+  },
+  {
+    "id": 9,
+    "slug": "design-critic",
+    "name": "design-critic",
+    "author": "ux-machines",
+    "desc": "Analyzes screenshots for accessibility issues, visual hierarchy problems, and UX anti-patterns. Returns annotated images with specific fix suggestions.",
+    "pulls": "8.3K",
+    "updated": "6d ago",
+    "category": "Design",
+    "caps": [
+      "vision",
+      "a11y"
+    ],
+    "models": [
+      "GPT-4o"
+    ],
+    "runnable": false,
+    "verified": false,
+    "color": "#f43f5e"
+  },
+  {
+    "id": 10,
+    "slug": "sql-writer",
+    "name": "sql-writer",
+    "author": "dbtools",
+    "desc": "Describe what you want in plain English, get optimized SQL queries. Understands your schema and suggests indexes.",
+    "pulls": "7.1K",
+    "updated": "10d ago",
+    "category": "Data",
+    "caps": [
+      "tools",
+      "postgres"
+    ],
+    "models": [
+      "Sonnet",
+      "GPT-4o-mini"
+    ],
+    "runnable": false,
+    "verified": false,
+    "color": "#f59e0b"
+  },
+  {
+    "id": 11,
+    "slug": "meeting-scribe",
+    "name": "meeting-scribe",
+    "author": "notesai",
+    "desc": "Joins your calls, produces structured meeting notes with action items, decisions, and follow-ups. Integrates with calendar and Slack.",
+    "pulls": "19.4K",
+    "updated": "1w ago",
+    "category": "Productivity",
+    "caps": [
+      "audio",
+      "slack"
+    ],
+    "models": [
+      "GPT-4o"
+    ],
+    "runnable": false,
+    "verified": true,
+    "color": "#6366f1"
+  },
+  {
+    "id": 12,
+    "slug": "financial-advisor",
+    "name": "financial-advisor",
+    "author": "merendamattia",
+    "desc": "Personal financial AI agent. Analyses your income, expenses, and investments — then gives actionable advice, forecasts, and budget plans powered by LLMs.",
+    "pulls": "1.2K",
+    "updated": "1d ago",
+    "category": "Finance",
+    "caps": ["budget", "forecast", "portfolio"],
+    "models": ["GPT-4o"],
+    "runnable": true,
+    "verified": false,
+    "color": "#10b981",
+    "kind": "embedded",
+    "embedUrl": "http://localhost:8501"
+  }
+]

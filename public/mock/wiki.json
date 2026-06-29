@@ -1,0 +1,193 @@
+{
+  "deepresearch": {
+    "whatItDoes": "Autonomous web research agent. Give it a research question and it breaks it down into sub-questions, runs parallel web searches, cross-references findings, and synthesizes a structured report with numbered inline citations.",
+    "howItWorks": [
+      "Decomposes your query into 3–8 sub-questions",
+      "Runs parallel web searches for each sub-question",
+      "Ranks and extracts relevant passages from top results",
+      "Cross-references findings for consistency and accuracy",
+      "Synthesizes a final Markdown report with citations"
+    ],
+    "inputFormat": "Plain-text research question (any length or complexity)",
+    "outputFormat": "Structured Markdown report — executive summary, findings by topic, numbered references",
+    "examples": [
+      "What are the top AI sandbox providers in 2026 and how do they compare on cold-start latency?",
+      "Summarize the latest research on retrieval-augmented generation vs. fine-tuning for domain adaptation."
+    ],
+    "limitations": [
+      "Cannot access paywalled or login-gated content",
+      "Reports may contain factual errors — always verify critical claims",
+      "Best for research questions answerable in under 30 minutes"
+    ]
+  },
+  "codeweaver": {
+    "whatItDoes": "Full-stack coding agent that reads your repository, plans changes across multiple files, writes or refactors code, runs your test suite, and opens a pull request with a detailed description.",
+    "howItWorks": [
+      "Clones and indexes your repository structure",
+      "Plans the change set — which files, what changes, in what order",
+      "Writes or modifies code across all affected files",
+      "Runs your existing test suite and fixes failing tests",
+      "Opens a PR with a summary, diff, and test results"
+    ],
+    "inputFormat": "GitHub repo URL + plain-English description of the change you want",
+    "outputFormat": "Open GitHub pull request with code changes, passing tests, and PR description",
+    "examples": [
+      "Add rate limiting middleware (100 req/min per IP) to all POST endpoints in my Express API.",
+      "Refactor the authentication module from session-based to JWT, update all tests."
+    ],
+    "limitations": [
+      "Requires GitHub access token with repo read/write permissions",
+      "Works best on repos under 100k lines of code",
+      "Cannot resolve pre-existing merge conflicts in open PRs"
+    ]
+  },
+  "data-scout": {
+    "whatItDoes": "Data analysis agent. Drop a CSV, connect a database, or paste raw data. It profiles the dataset, identifies patterns, runs statistical tests, and generates interactive visualizations.",
+    "howItWorks": [
+      "Ingests your data and profiles each column (type, nulls, distribution)",
+      "Detects outliers, correlations, and trends automatically",
+      "Runs statistical tests appropriate to your data types",
+      "Generates interactive Plotly charts",
+      "Produces a written findings summary"
+    ],
+    "inputFormat": "CSV file, JSON array, PostgreSQL connection string, or natural-language dataset description",
+    "outputFormat": "Analysis report with embedded interactive charts (HTML) and a findings summary",
+    "examples": [
+      "Analyze this sales CSV and find the top 3 drivers of revenue growth over the past 12 months.",
+      "Profile my user table — flag any data quality issues and show me the distribution of signup dates."
+    ],
+    "limitations": [
+      "Maximum dataset size: 10M rows / 50MB",
+      "Database connections must be read-only for safety",
+      "Visualization output requires a browser to render"
+    ]
+  },
+  "infra-sentinel": {
+    "whatItDoes": "Connects to AWS/GCP/Azure, watches metrics and logs, correlates anomalies across services, and can auto-scale or rollback with approval.",
+    "howItWorks": [
+      "Receives your task via natural language prompt",
+      "Uses its specialized tools and models to complete the task",
+      "Returns a structured result"
+    ],
+    "inputFormat": "Natural language prompt describing your task",
+    "outputFormat": "Structured output relevant to the agent's domain",
+    "examples": [
+      "Ask infra-sentinel to help with a devops task."
+    ],
+    "limitations": [
+      "Still in development — wiki content coming soon"
+    ]
+  },
+  "market-pulse": {
+    "whatItDoes": "Tracks SEC filings, earnings calls, and news sentiment in real time. Generates daily briefings and alerts on significant moves.",
+    "howItWorks": [
+      "Receives your task via natural language prompt",
+      "Uses its specialized tools and models to complete the task",
+      "Returns a structured result"
+    ],
+    "inputFormat": "Natural language prompt describing your task",
+    "outputFormat": "Structured output relevant to the agent's domain",
+    "examples": [
+      "Ask market-pulse to help with a finance task."
+    ],
+    "limitations": [
+      "Still in development — wiki content coming soon"
+    ]
+  },
+  "customer-agent": {
+    "whatItDoes": "Ingests your knowledge base, answers common questions, creates tickets for complex issues, and escalates to humans when confidence is low.",
+    "howItWorks": [
+      "Receives your task via natural language prompt",
+      "Uses its specialized tools and models to complete the task",
+      "Returns a structured result"
+    ],
+    "inputFormat": "Natural language prompt describing your task",
+    "outputFormat": "Structured output relevant to the agent's domain",
+    "examples": [
+      "Ask customer-agent to help with a support task."
+    ],
+    "limitations": [
+      "Still in development — wiki content coming soon"
+    ]
+  },
+  "legal-reviewer": {
+    "whatItDoes": "Parses contracts, flags non-standard clauses, compares against your playbook, and suggests redline edits.",
+    "howItWorks": [
+      "Receives your task via natural language prompt",
+      "Uses its specialized tools and models to complete the task",
+      "Returns a structured result"
+    ],
+    "inputFormat": "Natural language prompt describing your task",
+    "outputFormat": "Structured output relevant to the agent's domain",
+    "examples": [
+      "Ask legal-reviewer to help with a legal task."
+    ],
+    "limitations": [
+      "Still in development — wiki content coming soon"
+    ]
+  },
+  "doc-translator": {
+    "whatItDoes": "Handles Markdown, MDX, and HTML documentation. Preserves code blocks untranslated, maintains internal link structure, supports 40+ languages.",
+    "howItWorks": [
+      "Receives your task via natural language prompt",
+      "Uses its specialized tools and models to complete the task",
+      "Returns a structured result"
+    ],
+    "inputFormat": "Natural language prompt describing your task",
+    "outputFormat": "Structured output relevant to the agent's domain",
+    "examples": [
+      "Ask doc-translator to help with a translation task."
+    ],
+    "limitations": [
+      "Still in development — wiki content coming soon"
+    ]
+  },
+  "design-critic": {
+    "whatItDoes": "Analyzes screenshots for accessibility issues, visual hierarchy problems, and UX anti-patterns. Returns annotated images with specific fix suggestions.",
+    "howItWorks": [
+      "Receives your task via natural language prompt",
+      "Uses its specialized tools and models to complete the task",
+      "Returns a structured result"
+    ],
+    "inputFormat": "Natural language prompt describing your task",
+    "outputFormat": "Structured output relevant to the agent's domain",
+    "examples": [
+      "Ask design-critic to help with a design task."
+    ],
+    "limitations": [
+      "Still in development — wiki content coming soon"
+    ]
+  },
+  "sql-writer": {
+    "whatItDoes": "Describe what you want in plain English, get optimized SQL queries. Understands your schema and suggests indexes.",
+    "howItWorks": [
+      "Receives your task via natural language prompt",
+      "Uses its specialized tools and models to complete the task",
+      "Returns a structured result"
+    ],
+    "inputFormat": "Natural language prompt describing your task",
+    "outputFormat": "Structured output relevant to the agent's domain",
+    "examples": [
+      "Ask sql-writer to help with a data task."
+    ],
+    "limitations": [
+      "Still in development — wiki content coming soon"
+    ]
+  },
+  "meeting-scribe": {
+    "whatItDoes": "Joins your calls, produces structured meeting notes with action items, decisions, and follow-ups. Integrates with calendar and Slack.",
+    "howItWorks": [
+      "Receives your task via natural language prompt",
+      "Uses its specialized tools and models to complete the task",
+      "Returns a structured result"
+    ],
+    "inputFormat": "Natural language prompt describing your task",
+    "outputFormat": "Structured output relevant to the agent's domain",
+    "examples": [
+      "Ask meeting-scribe to help with a productivity task."
+    ],
+    "limitations": [
+      "Still in development — wiki content coming soon"
+    ]
+  }
+}

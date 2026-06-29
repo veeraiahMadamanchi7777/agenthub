@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "hooks": {
+    "stop": [
+      {
+        "command": ".cursor/hooks/whatsapp-notify.js",
+        "loop_limit": 3
+      }
+    ],
+    "beforeSubmitPrompt": [
+      {
+        "command": ".cursor/hooks/whatsapp-inject.js"
+      }
+    ],
+    "sessionStart": [
+      {
+        "command": ".cursor/hooks/whatsapp-session-start.js"
+      }
+    ]
+  }
+}

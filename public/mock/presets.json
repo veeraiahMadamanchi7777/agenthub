@@ -1,0 +1,26 @@
+[
+  {
+    "id": "research+data",
+    "name": "Research → Analysis",
+    "desc": "Deep research gathers competitive data, data-scout charts and analyzes it",
+    "agents": ["deepresearch", "data-scout"],
+    "colors": ["#6366f1", "#f59e0b"],
+    "lastRun": "2h ago ✓"
+  },
+  {
+    "id": "coding+legal",
+    "name": "Code → Compliance",
+    "desc": "Codeweaver scans repo, legal-reviewer checks for license violations",
+    "agents": ["codeweaver", "legal-reviewer"],
+    "colors": ["#22c55e", "#8b5cf6"],
+    "lastRun": "Yesterday ✓"
+  },
+  {
+    "id": "support+market",
+    "name": "Support → Context",
+    "desc": "Support agent fetches live market data before drafting customer responses",
+    "agents": ["customer-agent", "market-pulse"],
+    "colors": ["#ec4899", "#14b8a6"],
+    "lastRun": "3d ago ✓"
+  }
+]

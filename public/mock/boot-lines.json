@@ -1,0 +1,10 @@
+[
+  "Pulling image...",
+  "██████████  4 layers done",
+  "Creating microVM sandbox...",
+  "Injecting LLM gateway credentials",
+  "Configuring A2A endpoint",
+  "Applying deny-all egress policy",
+  "Health check ✓",
+  "Agent is live →"
+]

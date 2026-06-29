@@ -1,0 +1,255 @@
+{
+  "deepresearch": [
+    {
+      "id": 1,
+      "title": "What is DeepResearch?",
+      "body": "An autonomous agent that crawls the web, reads dozens of sources in parallel, and produces a structured report with inline citations — all in under 3 minutes.",
+      "icon": "search",
+      "step": "Overview"
+    },
+    {
+      "id": 2,
+      "title": "How it works",
+      "body": "Give it a topic. It breaks the question into sub-queries, searches the web, scores source credibility, extracts key claims, and synthesizes a coherent narrative.",
+      "icon": "flow",
+      "step": "Process"
+    },
+    {
+      "id": 3,
+      "title": "Try it: market analysis",
+      "body": "Ask: 'What are the top 5 risks in the EU AI Act for SaaS startups?' — get a 1,200-word report with sources linked and a risk table, ready to share.",
+      "icon": "example",
+      "step": "Use Case"
+    }
+  ],
+  "codeweaver": [
+    {
+      "id": 1,
+      "title": "What is CodeWeaver?",
+      "body": "A full-stack coding agent that reads your entire repo, plans multi-file changes, writes tests, and opens a pull request — without you touching a single file.",
+      "icon": "code",
+      "step": "Overview"
+    },
+    {
+      "id": 2,
+      "title": "How it works",
+      "body": "Connect your GitHub repo. Describe the feature or bug. CodeWeaver maps the codebase, writes a plan, implements it across files, runs tests, and opens a PR.",
+      "icon": "flow",
+      "step": "Process"
+    },
+    {
+      "id": 3,
+      "title": "Try it: add dark mode",
+      "body": "Say: 'Add a dark mode toggle to my React app.' It finds your theme setup, adds CSS variables, creates a toggle component, and wires it to localStorage.",
+      "icon": "example",
+      "step": "Use Case"
+    }
+  ],
+  "data-scout": [
+    {
+      "id": 1,
+      "title": "What is Data Scout?",
+      "body": "Drop a CSV or connect a database. Data Scout profiles your data, spots anomalies, runs statistical tests, and generates interactive charts — no SQL required.",
+      "icon": "chart",
+      "step": "Overview"
+    },
+    {
+      "id": 2,
+      "title": "How it works",
+      "body": "Upload your dataset. The agent infers schema, computes distributions, detects outliers, runs correlation analysis, and returns a visual report in minutes.",
+      "icon": "flow",
+      "step": "Process"
+    },
+    {
+      "id": 3,
+      "title": "Try it: sales data",
+      "body": "Upload a CSV of monthly sales. Ask: 'What is driving the Q3 dip?' — get a chart, a breakdown by region, and a plain-English explanation.",
+      "icon": "example",
+      "step": "Use Case"
+    }
+  ],
+  "infra-sentinel": [
+    {
+      "id": 1,
+      "title": "What is Infra Sentinel?",
+      "body": "A 24/7 infrastructure monitoring agent. It watches your Kubernetes cluster, detects anomalies, and auto-remediates common issues before they become incidents.",
+      "icon": "monitor",
+      "step": "Overview"
+    },
+    {
+      "id": 2,
+      "title": "How it works",
+      "body": "Connect your cloud provider. Sentinel polls metrics every 30 seconds, compares against baselines, and either resolves the issue or pages your on-call engineer.",
+      "icon": "flow",
+      "step": "Process"
+    },
+    {
+      "id": 3,
+      "title": "Try it: OOM detection",
+      "body": "When a pod exceeds memory limits, Sentinel captures a heap dump, logs the trace, scales the deployment, and sends a Slack alert — all without human intervention.",
+      "icon": "example",
+      "step": "Use Case"
+    }
+  ],
+  "market-pulse": [
+    {
+      "id": 1,
+      "title": "What is Market Pulse?",
+      "body": "A real-time financial intelligence agent. It monitors stocks, news, and social sentiment to surface investment signals and risks before the market moves.",
+      "icon": "chart",
+      "step": "Overview"
+    },
+    {
+      "id": 2,
+      "title": "How it works",
+      "body": "Set a watchlist. Market Pulse aggregates earnings, filings, analyst reports, Reddit, and X sentiment — then scores each ticker with a bullish/bearish confidence.",
+      "icon": "flow",
+      "step": "Process"
+    },
+    {
+      "id": 3,
+      "title": "Try it: earnings season",
+      "body": "Watch NVDA before earnings. Get: pre-call sentiment score, key analyst price targets, top 3 Reddit threads, and a risk/reward summary in one view.",
+      "icon": "example",
+      "step": "Use Case"
+    }
+  ],
+  "customer-agent": [
+    {
+      "id": 1,
+      "title": "What is Customer Agent?",
+      "body": "An always-on support agent that resolves 80% of tickets autonomously — pulling from your docs, knowledge base, and past tickets — and escalates the rest.",
+      "icon": "chat",
+      "step": "Overview"
+    },
+    {
+      "id": 2,
+      "title": "How it works",
+      "body": "Connect your Zendesk or Intercom. The agent reads your docs and past resolutions, then handles new tickets, drafts responses, and closes resolved cases.",
+      "icon": "flow",
+      "step": "Process"
+    },
+    {
+      "id": 3,
+      "title": "Try it: refund request",
+      "body": "Customer says: 'I was charged twice.' The agent looks up their order, confirms the duplicate charge, issues the refund, and sends a confirmation email automatically.",
+      "icon": "example",
+      "step": "Use Case"
+    }
+  ],
+  "legal-reviewer": [
+    {
+      "id": 1,
+      "title": "What is Legal Reviewer?",
+      "body": "An AI contract analysis agent. It reads legal documents, highlights risk clauses, compares against your standard templates, and flags anything unusual.",
+      "icon": "doc",
+      "step": "Overview"
+    },
+    {
+      "id": 2,
+      "title": "How it works",
+      "body": "Upload a PDF. Legal Reviewer parses clause types, maps risk level, compares against your playbook, and produces a structured redline with severity scores.",
+      "icon": "flow",
+      "step": "Process"
+    },
+    {
+      "id": 3,
+      "title": "Try it: vendor NDA",
+      "body": "Upload a vendor NDA. Get: a list of non-standard clauses, IP ownership red flags, termination risks, and a one-paragraph exec summary to share with your legal team.",
+      "icon": "example",
+      "step": "Use Case"
+    }
+  ],
+  "doc-translator": [
+    {
+      "id": 1,
+      "title": "What is Doc Translator?",
+      "body": "A document translation agent with domain awareness. It translates technical, legal, and medical documents across 40+ languages while preserving formatting and tone.",
+      "icon": "doc",
+      "step": "Overview"
+    },
+    {
+      "id": 2,
+      "title": "How it works",
+      "body": "Upload a document (PDF, DOCX, or HTML). The agent detects the domain, applies specialized terminology, and returns a translated version with the original layout intact.",
+      "icon": "flow",
+      "step": "Process"
+    },
+    {
+      "id": 3,
+      "title": "Try it: medical report",
+      "body": "Upload a Spanish radiology report. Get back an English version with correct anatomical terms, units preserved, and a glossary of translated clinical terms.",
+      "icon": "example",
+      "step": "Use Case"
+    }
+  ],
+  "design-critic": [
+    {
+      "id": 1,
+      "title": "What is Design Critic?",
+      "body": "An AI design review agent. Upload a screenshot or Figma link — it scores your UI on accessibility, visual hierarchy, contrast, and UX patterns, with specific fixes.",
+      "icon": "eye",
+      "step": "Overview"
+    },
+    {
+      "id": 2,
+      "title": "How it works",
+      "body": "Share a design. The agent analyses contrast ratios, spacing consistency, font hierarchy, touch target sizes, and common anti-patterns — then lists prioritised fixes.",
+      "icon": "flow",
+      "step": "Process"
+    },
+    {
+      "id": 3,
+      "title": "Try it: landing page",
+      "body": "Upload your landing page screenshot. Get: 3 critical contrast failures, 2 hierarchy issues, a WCAG score, and specific CSS fixes for each problem.",
+      "icon": "example",
+      "step": "Use Case"
+    }
+  ],
+  "sql-writer": [
+    {
+      "id": 1,
+      "title": "What is SQL Writer?",
+      "body": "A natural language to SQL agent. Describe what data you need in plain English, point it at your schema, and get production-ready SQL queries instantly.",
+      "icon": "code",
+      "step": "Overview"
+    },
+    {
+      "id": 2,
+      "title": "How it works",
+      "body": "Connect your database schema. Type a question like 'Show me top 10 customers by revenue this quarter.' The agent returns an optimised, commented SQL query.",
+      "icon": "flow",
+      "step": "Process"
+    },
+    {
+      "id": 3,
+      "title": "Try it: cohort analysis",
+      "body": "Ask: 'What is the 30-day retention rate for users who signed up in January?' Get a multi-join cohort query with window functions, ready to paste into your BI tool.",
+      "icon": "example",
+      "step": "Use Case"
+    }
+  ],
+  "meeting-scribe": [
+    {
+      "id": 1,
+      "title": "What is Meeting Scribe?",
+      "body": "A meeting intelligence agent. Join a call and it transcribes in real-time, identifies speakers, extracts action items, and sends structured notes to your team.",
+      "icon": "chat",
+      "step": "Overview"
+    },
+    {
+      "id": 2,
+      "title": "How it works",
+      "body": "Invite the bot to your Zoom, Meet, or Teams call. It transcribes, diarises speakers, groups topics, and delivers a structured summary with owners and due dates.",
+      "icon": "flow",
+      "step": "Process"
+    },
+    {
+      "id": 3,
+      "title": "Try it: product standup",
+      "body": "Run your daily standup with Scribe. After 10 minutes get: per-person updates, blockers, 3 action items with owners, and a one-para summary ready to post in Slack.",
+      "icon": "example",
+      "step": "Use Case"
+    }
+  ]
+}

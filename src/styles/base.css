@@ -1,0 +1,15 @@
+/** Global reset and typography. */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-size:15px;line-height:1.5;color:var(--tx);background:var(--bg);-webkit-font-smoothing:antialiased}
+#root{min-height:100vh;display:flex;flex-direction:column}
+input,textarea,button,select{font:inherit}
+button{cursor:pointer;border:none;background:none;padding:0}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--tx);outline-offset:2px}
+.mono{font-family:'JetBrains Mono',monospace}
+.app{flex:1;display:flex;flex-direction:column;min-height:100vh}
+.content{flex:1}
+.page{padding:32px 40px 48px;max-width:900px;margin:0 auto}
+.page-home{max-width:960px}
+.muted{color:var(--tx-d)}

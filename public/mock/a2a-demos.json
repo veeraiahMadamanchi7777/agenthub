@@ -1,0 +1,98 @@
+{
+  "research+data": [
+    {
+      "from": "user",
+      "to": null,
+      "type": "prompt",
+      "text": "Analyze the competitive landscape for AI sandboxes and give me a data-backed report."
+    },
+    {
+      "from": "deepresearch",
+      "to": null,
+      "type": "status",
+      "text": "Task accepted. Starting web research on AI sandbox market..."
+    },
+    {
+      "from": "deepresearch",
+      "to": "data-scout",
+      "type": "a2a",
+      "text": "{\"task\":\"analyze\",\"artifact\":{\"type\":\"dataset\",\"rows\":12},\"message\":\"Here's the raw competitive data I gathered. Can you run statistical analysis and generate comparison charts?\"}"
+    },
+    {
+      "from": "data-scout",
+      "to": "deepresearch",
+      "type": "a2a",
+      "text": "{\"status\":\"working\",\"message\":\"Received dataset. Running correlation analysis on funding vs cold-start performance...\"}"
+    },
+    {
+      "from": "data-scout",
+      "to": "deepresearch",
+      "type": "a2a",
+      "text": "{\"status\":\"complete\",\"artifacts\":[{\"type\":\"chart\",\"title\":\"Cold Start vs Pricing\"},{\"type\":\"chart\",\"title\":\"Isolation Model Market Share\"}],\"insight\":\"E2B and Daytona are price-competitive at $0.05/vCPU-hr but differ on isolation depth.\"}"
+    },
+    {
+      "from": "deepresearch",
+      "to": null,
+      "type": "complete",
+      "text": "Report complete: 'AI Sandbox Infrastructure 2026' — 18 pages, 4 charts, 23 citations."
+    }
+  ],
+  "coding+legal": [
+    {
+      "from": "user",
+      "to": null,
+      "type": "prompt",
+      "text": "Review the open-source license compliance in my repo and fix any issues."
+    },
+    {
+      "from": "codeweaver",
+      "to": "legal-reviewer",
+      "type": "a2a",
+      "text": "{\"task\":\"review_licenses\",\"artifact\":{\"type\":\"file_list\",\"files\":[\"package.json\",\"go.mod\",\"LICENSE\"]},\"message\":\"I've extracted all dependency manifests. Can you check for license conflicts?\"}"
+    },
+    {
+      "from": "legal-reviewer",
+      "to": "codeweaver",
+      "type": "a2a",
+      "text": "{\"status\":\"complete\",\"findings\":[{\"severity\":\"high\",\"dep\":\"react-pdf-viewer\",\"license\":\"GPL-3.0\",\"conflict\":\"Incompatible with MIT\"}],\"recommendation\":\"Replace react-pdf-viewer with @react-pdf/renderer (MIT).\"}"
+    },
+    {
+      "from": "codeweaver",
+      "to": null,
+      "type": "status",
+      "text": "Replacing GPL dependency. Updating imports across 3 files..."
+    },
+    {
+      "from": "codeweaver",
+      "to": null,
+      "type": "complete",
+      "text": "PR #142 opened: 'fix: replace GPL dependency with MIT-compatible alternative'. All tests passing."
+    }
+  ],
+  "support+market": [
+    {
+      "from": "user",
+      "to": null,
+      "type": "prompt",
+      "text": "A customer is asking why our stock price dropped. Draft a response with market context."
+    },
+    {
+      "from": "customer-agent",
+      "to": "market-pulse",
+      "type": "a2a",
+      "text": "{\"task\":\"market_context\",\"query\":\"Why did ACME Corp stock drop today?\",\"message\":\"Need current market context to draft an informed response.\"}"
+    },
+    {
+      "from": "market-pulse",
+      "to": "customer-agent",
+      "type": "a2a",
+      "text": "{\"status\":\"complete\",\"context\":{\"price_change\":\"-4.2%\",\"catalyst\":\"Sector-wide SaaS selloff after Fed guidance\"},\"summary\":\"Decline is sector-driven, not company-specific.\"}"
+    },
+    {
+      "from": "customer-agent",
+      "to": null,
+      "type": "complete",
+      "text": "Response drafted: explains sector movement, notes no company-specific concerns. Ready for human review."
+    }
+  ]
+}

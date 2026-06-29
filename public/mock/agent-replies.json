@@ -1,0 +1,17 @@
+{
+  "deepresearch": [
+    "Understood. Breaking your query into sub-questions and starting web research...",
+    "Found {n} relevant sources. Cross-referencing and extracting key passages...",
+    "Research complete. Here's what I found:\n\n{summary}\n\nFull report with citations is being compiled. This should take about 30 more seconds."
+  ],
+  "codeweaver": [
+    "Cloning your repo... indexing files...",
+    "Plan ready. I'll touch {n} files. Running implementation now...",
+    "Done. Tests passing ✓. Opening pull request..."
+  ],
+  "data-scout": [
+    "Ingesting dataset... profiling columns...",
+    "Found {n} interesting patterns. Running statistical tests...",
+    "Analysis complete. Generated {n} charts. Here are the top findings:\n\n• Strong positive correlation between feature A and B (r=0.87)\n• 3 outliers detected in the revenue column\n• Seasonal trend peaks in Q3 across all markets"
+  ]
+}

@@ -1,0 +1,77 @@
+[
+  {
+    "id": "s1",
+    "agentSlug": "deepresearch",
+    "title": "AI sandbox competitive analysis",
+    "status": "running",
+    "lastMessage": "Here are the top 5 AI sandbox providers ranked by cold-start latency...",
+    "updatedAt": "2 min ago",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Analyze the top 5 AI sandbox providers in 2026 — focus on cold-start latency, pricing, and isolation model.",
+        "ts": "10:04"
+      },
+      {
+        "role": "agent",
+        "content": "On it. Breaking this into sub-questions: (1) who are the major players, (2) what are their cold-start benchmarks, (3) pricing structure, (4) isolation approach.\n\nSearching now...",
+        "ts": "10:04"
+      },
+      {
+        "role": "agent",
+        "content": "Found 12 sources. Cross-referencing E2B, Daytona, Modal, Replit, and Fly.io Machines. Running correlation on latency vs. pricing data...",
+        "ts": "10:05"
+      },
+      {
+        "role": "agent",
+        "content": "Here are the top 5 AI sandbox providers ranked by cold-start latency:\n\n**1. E2B** — ~150ms cold start, $0.05/vCPU-hr, microVM isolation\n**2. Modal** — ~200ms, $0.06/vCPU-hr, container-based\n**3. Daytona** — ~180ms, $0.05/vCPU-hr, microVM\n**4. Replit** — ~800ms, $0.08/vCPU-hr, container\n**5. Fly.io Machines** — ~300ms, $0.04/vCPU-hr, firecracker VMs\n\nFull report with citations is being compiled...",
+        "ts": "10:06"
+      }
+    ]
+  },
+  {
+    "id": "s2",
+    "agentSlug": "codeweaver",
+    "title": "Add rate limiting to Express API",
+    "status": "stopped",
+    "lastMessage": "PR #142 opened: 'feat: add per-IP rate limiting to POST endpoints'. All 47 tests passing.",
+    "updatedAt": "2h ago",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Add rate limiting (100 req/min per IP) to all POST endpoints in my Express API. Repo: github.com/org/api",
+        "ts": "08:12"
+      },
+      {
+        "role": "agent",
+        "content": "Cloning repo... indexed 3,847 files. Found 12 POST endpoint handlers across 4 route files.\n\nPlan:\n1. Install `express-rate-limit` and `rate-limit-redis`\n2. Create `middleware/rateLimit.ts`\n3. Apply to all POST routes in `app.ts`\n4. Add tests for rate limit behavior",
+        "ts": "08:13"
+      },
+      {
+        "role": "agent",
+        "content": "Code written. Running test suite... 47/47 tests passing ✓\n\nPR #142 opened: 'feat: add per-IP rate limiting to POST endpoints'. All 47 tests passing.",
+        "ts": "08:15"
+      }
+    ]
+  },
+  {
+    "id": "s3",
+    "agentSlug": "data-scout",
+    "title": "Q3 sales dataset analysis",
+    "status": "failed",
+    "lastMessage": "Error: CSV file exceeds 50MB limit. Please split the dataset or use a database connection.",
+    "updatedAt": "Yesterday",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Analyze my Q3 sales data and find the top revenue drivers.",
+        "ts": "09:30"
+      },
+      {
+        "role": "agent",
+        "content": "Uploading dataset... file size: 62MB. Error: CSV file exceeds 50MB limit. Please split the dataset into smaller chunks or provide a PostgreSQL connection string instead.",
+        "ts": "09:30"
+      }
+    ]
+  }
+]
