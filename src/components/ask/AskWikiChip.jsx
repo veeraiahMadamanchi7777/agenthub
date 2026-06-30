@@ -8,7 +8,7 @@ export function AskWikiChip({ agent, onRemove }) {
         type="button"
         className="ask-wiki-chip-remove"
         onClick={onRemove}
-        aria-label={`Remove ${agent.name} wiki`}
+        aria-label={`Remove ${agent.name} doc`}
       >
         ×
       </button>

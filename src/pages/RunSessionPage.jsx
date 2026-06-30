@@ -45,7 +45,7 @@ export function RunSessionPage() {
   return (
     <div className="run-session">
       <div className="embed-header">
-        <button className="embed-back" onClick={() => nav('/sessions')} aria-label="Go back">
+        <button className="embed-back" onClick={() => nav('/runs')} aria-label="Go back">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
             <polyline points="15 18 9 12 15 6" />
           </svg>

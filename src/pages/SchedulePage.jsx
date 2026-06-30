@@ -23,7 +23,7 @@ function formatRunAt(iso) {
 }
 
 export function SchedulePage() {
-  usePageTitle('Schedule');
+  usePageTitle('Automate');
   const { agents, loading: agentsLoading } = useAgents();
   const { schedules, add, remove, toggle } = useSchedules();
   const { show } = useToast();
@@ -45,7 +45,7 @@ export function SchedulePage() {
     e.preventDefault();
     if (!agentSlug || !runAt) return;
     add({ agentSlug, note: note.trim(), runAt, repeat });
-    show('Schedule saved', 'success');
+    show('Automation saved', 'success');
     resetForm();
   };
 
@@ -60,11 +60,11 @@ export function SchedulePage() {
   return (
     <main className="page page-narrow schedule-page">
       <PageHeader
-        title="Schedule"
+        title="Automate"
         subtitle="Run agents on a timer — one-off or recurring."
         action={
           <button type="button" className="schedule-new-btn" onClick={() => setOpen((o) => !o)}>
-            {open ? 'Cancel' : '+ New schedule'}
+            {open ? 'Cancel' : '+ New automation'}
           </button>
         }
       />
@@ -107,12 +107,12 @@ export function SchedulePage() {
               placeholder="What should this run do?"
             />
           </label>
-          <PrimaryBtn type="submit" disabled={!agentSlug || !runAt}>Save schedule</PrimaryBtn>
+          <PrimaryBtn type="submit" disabled={!agentSlug || !runAt}>Save automation</PrimaryBtn>
         </form>
       )}
 
       {schedules.length === 0 ? (
-        <p className="schedule-empty">No schedules yet. Create one to automate agent runs.</p>
+        <p className="schedule-empty">No automations yet. Create one to run agents on a cadence.</p>
       ) : (
         <ul className="schedule-list">
           {schedules.map((s) => {
@@ -139,7 +139,7 @@ export function SchedulePage() {
                   <button
                     type="button"
                     className="schedule-delete"
-                    onClick={() => { remove(s.id); show('Schedule removed', 'info'); }}
+                    onClick={() => { remove(s.id); show('Automation removed', 'info'); }}
                     aria-label="Delete schedule"
                   >
                     Delete

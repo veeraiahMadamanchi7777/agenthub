@@ -10,7 +10,7 @@ import { WikiDocCard } from '../components/wiki/WikiDocCard.jsx';
 import { Skeleton } from '../components/ui/Skeleton.jsx';
 
 export function WikiIndexPage() {
-  usePageTitle('Wiki');
+  usePageTitle('Library');
   const { agents, categories, loading } = useAgents();
   const [q, setQ] = useState('');
   const [summaries, setSummaries] = useState({});
@@ -37,8 +37,8 @@ export function WikiIndexPage() {
   return (
     <div className="wiki-index">
       <header className="wiki-index-head">
-        <h1 className="wiki-index-title">Wiki</h1>
-        <p className="wiki-index-sub">Documentation pulled from each agent&apos;s README</p>
+        <h1 className="wiki-index-title">Library</h1>
+        <p className="wiki-index-sub">Agent documentation pulled from each README</p>
       </header>
 
       <div className="wiki-index-search">
@@ -63,7 +63,7 @@ export function WikiIndexPage() {
                 key={a.id}
                 agent={a}
                 summary={summaries[a.slug]}
-                onOpen={() => nav(`/wiki/${a.slug}`)}
+                onOpen={() => nav(`/library/${a.slug}`)}
               />
             ))}
           </div>

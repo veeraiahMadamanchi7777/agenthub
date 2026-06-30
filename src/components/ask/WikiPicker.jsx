@@ -17,7 +17,7 @@ export function WikiPicker({ agents, selected, onAdd, onClose }) {
   return (
     <div className="ask-wiki-picker">
       <div className="ask-wiki-picker-head">
-        <span className="ask-wiki-picker-title">Add wiki pages</span>
+        <span className="ask-wiki-picker-title">Add library docs</span>
         <button type="button" className="ask-wiki-picker-close" onClick={onClose} aria-label="Close">×</button>
       </div>
 
@@ -29,15 +29,15 @@ export function WikiPicker({ agents, selected, onAdd, onClose }) {
           className="ask-wiki-picker-input"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="Search wiki…"
-          aria-label="Search wiki pages"
+          placeholder="Search library…"
+          aria-label="Search library docs"
           autoFocus
         />
       </div>
 
       <ul className="ask-wiki-picker-list">
         {available.length === 0 ? (
-          <li className="ask-wiki-picker-empty">No wiki pages found</li>
+          <li className="ask-wiki-picker-empty">No docs found</li>
         ) : (
           available.map((a) => (
             <li key={a.slug}>

@@ -46,7 +46,7 @@ export function AgentDetailPage() {
         </div>
         <div className="flex-row">
           <PrimaryBtn onClick={() => requireAuth(() => openBoot(a))} disabled={!a.runnable}>Run agent</PrimaryBtn>
-          <Link to={`/wiki/${slug}`}><GhostBtn>View wiki</GhostBtn></Link>
+          <Link to={`/library/${slug}`}><GhostBtn>View docs</GhostBtn></Link>
           <GhostBtn onClick={() => nav('/')}>← Back</GhostBtn>
         </div>
       </div>

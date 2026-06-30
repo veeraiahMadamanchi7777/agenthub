@@ -1,8 +1,17 @@
-/** Sidebar navigation — Sessions, Wiki, Ask, Schedule, Setup. */
+/** Sidebar navigation — Runs, Automate, Library, Discover, Workstation. */
 export const SIDEBAR_ITEMS = [
-  { id: 'sessions', label: 'Sessions', path: '/sessions', auth: true, icon: 'sessions' },
-  { id: 'schedule', label: 'Schedule', path: '/schedule', auth: true, icon: 'schedule' },
-  { id: 'wiki', label: 'Wiki', path: '/wiki', auth: false, icon: 'wiki' },
-  { id: 'ask', label: 'Ask', path: '/ask', auth: false, icon: 'ask' },
-  { id: 'setup', label: 'Setup', path: '/setup', auth: false, icon: 'setup' },
+  { id: 'runs', label: 'Runs', path: '/runs', auth: true, icon: 'runs' },
+  { id: 'automate', label: 'Automate', path: '/automate', auth: true, icon: 'automate' },
+  { id: 'library', label: 'Library', path: '/library', auth: false, icon: 'library' },
+  { id: 'discover', label: 'Discover', path: '/discover', auth: false, icon: 'discover' },
+  { id: 'workstation', label: 'Workstation', path: '/workstation', auth: false, icon: 'workstation' },
 ];
+
+/** Legacy paths → current routes (redirects). */
+export const LEGACY_NAV_REDIRECTS = {
+  '/sessions': '/runs',
+  '/schedule': '/automate',
+  '/wiki': '/library',
+  '/ask': '/discover',
+  '/setup': '/workstation',
+};

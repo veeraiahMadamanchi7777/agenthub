@@ -32,7 +32,7 @@ export const RUN_CONFIGS = {
     hostPort: 8501,
     embed: true,
     env: [],
-    note: 'Real Streamlit agent. Build it first: clone personal-financial-ai-agent, then `docker build -t financial-ai-agent:local .` (see Setup page).',
+    note: 'Real Streamlit agent. Build it first: clone personal-financial-ai-agent, then `docker build -t financial-ai-agent:local .` (see Workstation page).',
   },
   deepresearch: demoConfig('deepresearch', [
     'Booting research sandbox...',

@@ -16,7 +16,7 @@ export function WikiDocCard({ agent, summary, onOpen }) {
       </div>
       <p className="wiki-card-desc">{summary || agent.desc}</p>
       <div className="wiki-card-foot">
-        <span className="wiki-card-link">Read wiki →</span>
+        <span className="wiki-card-link">Read docs →</span>
       </div>
     </article>
   );

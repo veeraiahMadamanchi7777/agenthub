@@ -15,7 +15,7 @@ import { useToast } from '../context/ToastProvider.jsx';
 const FILTERS = ['all', 'running', 'stopped', 'failed'];
 
 export function SessionsPage() {
-  usePageTitle('Sessions');
+  usePageTitle('Runs');
   const { sessions: raw, loading } = useSessions();
   const { agents } = useAgents();
   const [sessions, setSessions] = useState([]);
@@ -38,7 +38,7 @@ export function SessionsPage() {
   if (loading) return <main className="page"><Skeleton lines={4} /></main>;
   return (
     <main className="page">
-      <PageHeader title="Sessions" subtitle="Active and past agent sessions"
+      <PageHeader title="Runs" subtitle="Active and past agent runs"
         action={<GhostBtn onClick={() => nav('/')}>+ New session</GhostBtn>} />
       <div className="search-box">
         <input className="search-input" style={{ paddingLeft: 16 }} value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search sessions…" aria-label="Search sessions" />
@@ -51,7 +51,7 @@ export function SessionsPage() {
           const agent = agents.find((a) => a.slug === s.agentSlug);
           return (
             <div key={s.id} className="panel-row" tabIndex={0} role="link"
-              onClick={() => nav(`/sessions/${s.id}`)} onKeyDown={(e) => e.key === 'Enter' && nav(`/sessions/${s.id}`)}>
+              onClick={() => nav(`/runs/${s.id}`)} onKeyDown={(e) => e.key === 'Enter' && nav(`/runs/${s.id}`)}>
               <StatusDot status={s.status} />
               <div className="panel-body">
                 <div className="panel-title-row">{s.title || agent?.name} <StatusBadge status={s.status} /></div>

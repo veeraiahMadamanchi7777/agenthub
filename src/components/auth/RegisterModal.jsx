@@ -50,7 +50,7 @@ export function RegisterModal() {
           </label>
           <textarea
             className="input textarea register-readme"
-            placeholder="Paste README.md content — shown on the Wiki page automatically"
+            placeholder="Paste README.md content — shown in the Library automatically"
             rows={8}
             value={readme}
             onChange={(e) => setReadme(e.target.value)}

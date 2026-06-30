@@ -38,7 +38,7 @@ export function BootModal() {
   const open = () => {
     closeBoot();
     if (sessionId) {
-      nav(`/sessions/run/${sessionId}`);
+      nav(`/runs/run/${sessionId}`);
       show('Session started', 'success');
     } else {
       show(runError || 'Run server unreachable — start it with `npm run server`.', 'error');

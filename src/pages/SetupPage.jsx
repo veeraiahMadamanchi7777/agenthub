@@ -21,13 +21,13 @@ const STEPS = [
 ];
 
 export function SetupPage() {
-  usePageTitle('Setup');
+  usePageTitle('Workstation');
 
   return (
     <main className="page page-narrow setup-page">
       <PageHeader
-        title="Setup"
-        subtitle="Environment checklist for running AgentHub and embedded agents locally."
+        title="Workstation"
+        subtitle="Local environment checklist for running AgentHub and embedded agents."
       />
 
       <ol className="setup-steps">

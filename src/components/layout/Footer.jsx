@@ -7,7 +7,7 @@ export function Footer() {
       <div className="footer-inner">
         <span className="footer-copy">© 2026 AgentHub</span>
         <div className="footer-links">
-          <Link to="/wiki">Wiki</Link>
+          <Link to="/library">Library</Link>
           <a href="mailto:hello@agenthub.dev">Contact</a>
         </div>
       </div>

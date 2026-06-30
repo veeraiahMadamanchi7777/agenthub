@@ -11,7 +11,7 @@ import { WikiPicker } from '../components/ask/WikiPicker.jsx';
 import { Skeleton } from '../components/ui/Skeleton.jsx';
 
 export function AskPage() {
-  usePageTitle('Ask');
+  usePageTitle('Discover');
   const { agents, loading } = useAgents();
   const nav = useNavigate();
   const [question, setQuestion] = useState('');
@@ -57,8 +57,8 @@ export function AskPage() {
   return (
     <main className="page page-narrow ask-page">
       <PageHeader
-        title="Ask"
-        subtitle="Search your question and attach wiki pages for context — we'll route you to the best agent."
+        title="Discover"
+        subtitle="Search for what you need and attach library docs — we'll route you to the best agent."
       />
 
       <div className="ask-search-wrap">
@@ -70,21 +70,21 @@ export function AskPage() {
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={onKeyDown}
-          placeholder="Ask a question…"
+          placeholder="Describe what you need…"
           aria-label="Your question"
         />
       </div>
 
-      <section className="ask-wiki-section" aria-label="Wiki context">
+      <section className="ask-wiki-section" aria-label="Library context">
         <div className="ask-wiki-toolbar">
-          <span className="ask-wiki-label">Wiki context</span>
+          <span className="ask-wiki-label">Library context</span>
           <button
             type="button"
             className="ask-wiki-add"
             onClick={() => setPickerOpen((o) => !o)}
             aria-expanded={pickerOpen}
           >
-            + Add wiki
+            + Add doc
           </button>
         </div>
 
@@ -106,7 +106,7 @@ export function AskPage() {
         )}
 
         {!selectedAgents.length && !pickerOpen && (
-          <p className="ask-wiki-hint">Attach one or more agent wiki pages to ground your question.</p>
+          <p className="ask-wiki-hint">Attach one or more library docs to ground your search.</p>
         )}
       </section>
 

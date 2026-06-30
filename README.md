@@ -50,21 +50,24 @@ Preview serves the built app at [http://localhost:4173](http://localhost:4173).
 
 - **Browse** — search and filter agents on the home page
 - **Run** — boot an agent and open a session (mock or embedded)
-- **Wiki** — docs loaded automatically from each agent's `README.md`
-- **Sessions** — chat with running agents (mock replies)
+- **Library** — docs loaded automatically from each agent's `README.md`
+- **Runs** — live and past agent runs (real Docker logs when the run server is up)
+- **Discover** — search with library context to find the right agent
+- **Automate** — schedule recurring or one-off agent runs
+- **Workstation** — local environment setup checklist
 - **Studio** — multi-agent pipeline feed
 
 Toggle dark/light mode from the header.
 
-## Wiki / docs
+## Library / docs
 
-Each agent's wiki page reads from:
+Each agent's doc page reads from:
 
 ```
 public/readmes/{agent-slug}/README.md
 ```
 
-Drop a README in that folder and it appears on `/wiki/{slug}` — no manual wiki JSON. On register, upload or paste a README; that becomes the agent docs in production.
+Drop a README in that folder and it appears on `/library/{slug}` — no manual wiki JSON. On register, upload or paste a README; that becomes the agent docs in production.
 
 Regenerate README files from legacy `wiki.json` (optional):
 

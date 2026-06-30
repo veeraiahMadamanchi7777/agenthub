@@ -40,7 +40,7 @@ export function SessionPage() {
   return (
     <div className="session-layout">
       <div className="session-main">
-        <Breadcrumbs items={[{ label: 'Sessions', to: '/sessions' }, { label: session.title || agent?.name }]} />
+        <Breadcrumbs items={[{ label: 'Runs', to: '/runs' }, { label: session.title || agent?.name }]} />
         <div className="session-header">
           <button type="button" className="session-title-btn" onClick={rename}>{session.title || agent?.name}</button>
         </div>

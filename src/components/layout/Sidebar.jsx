@@ -25,7 +25,7 @@ export function Sidebar() {
             authed={authed}
             collapsed={collapsed}
             onAuth={() => setAuthOpen(true)}
-            badge={item.id === 'sessions' ? running : 0}
+            badge={item.id === 'runs' ? running : 0}
           />
         ))}
       </nav>

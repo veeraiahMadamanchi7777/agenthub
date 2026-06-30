@@ -18,7 +18,7 @@ export function WikiEntryPage() {
   const { openBoot } = useBoot();
   const a = agents.find((x) => x.slug === slug);
   const { content, loading: lr, missing } = useReadme(slug, a);
-  usePageTitle(a ? `${a.name} — Wiki` : 'Wiki');
+  usePageTitle(a ? `${a.name} — Library` : 'Library');
 
   if (la || lr) {
     return (
@@ -40,7 +40,7 @@ export function WikiEntryPage() {
   return (
     <div className="wiki-page">
       <header className="wiki-doc-header">
-        <button className="wiki-doc-back" onClick={() => nav('/wiki')} aria-label="Back to wiki">
+        <button className="wiki-doc-back" onClick={() => nav('/library')} aria-label="Back to library">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
             <polyline points="15 18 9 12 15 6" />
           </svg>
