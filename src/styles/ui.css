@@ -12,7 +12,7 @@
 .breadcrumb-sep{margin:0 6px;color:var(--tx-d)}
 .breadcrumb-item a:hover{color:var(--tx)}
 .toast{position:fixed;bottom:24px;right:24px;padding:12px 20px;border-radius:9999px;background:var(--tx);color:var(--bg);font-size:14px;font-weight:500;z-index:999;animation:fadeIn .2s ease;box-shadow:0 4px 20px rgba(0,0,0,.15)}
-.toast-success{background:#166534;color:#fff}.toast-info{background:var(--tx-m)}
+.toast-success{background:#166534;color:#fff}.toast-info{background:var(--tx-m)}.toast-error{background:#991b1b;color:#fff}
 .wiki-table{width:100%;border-collapse:collapse;font-size:14px}
 .register-readme-label{display:block;font-size:13px;font-weight:500;color:var(--tx-m);margin-bottom:8px}
 .register-readme-file{display:block;margin-top:6px;font-size:13px}
@@ -179,6 +179,16 @@
 @keyframes spin{to{transform:rotate(360deg)}}
 .embed-hint{font-size:13px;color:var(--tx-d);margin-top:8px;line-height:1.8}
 .embed-hint code{font-family:'JetBrains Mono',monospace;background:var(--bg-hover);padding:8px 14px;border-radius:8px;display:inline-block;margin-top:8px;font-size:12px;border:1px solid var(--bd)}
+
+/* ── Real container run session ── */
+.run-session{display:flex;flex-direction:column;height:calc(100vh - 56px)}
+.run-body{flex:1;display:flex;flex-direction:column;overflow-y:auto}
+.run-log-panel{padding:18px 20px;min-height:220px;flex-shrink:0;overflow-y:auto;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.8;background:var(--term-bg);border-bottom:1px solid var(--bd);white-space:pre-wrap;word-break:break-word}
+.run-real-tag{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#22c55e;border:1px solid #22c55e;border-radius:9999px;padding:1px 7px;margin-left:8px}
+.term-err{color:#ef4444}
+.run-iframe-wrap{flex:1;display:flex;min-height:420px}
+.run-iframe{flex:1;border:none;width:100%;background:var(--bg-soft)}
+.run-iframe-hint{padding:20px;color:var(--tx-d);font-size:13px;text-align:center}
 .reels-sidebar{position:fixed;bottom:24px;right:24px;width:220px;z-index:90;background:var(--bg);border:1px solid var(--bd);border-radius:16px;overflow:hidden;transition:opacity .3s,transform .3s}
 .reel-mini--fade{opacity:0;transform:translateY(6px)}
 .reels-sidebar-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--tx-d);margin:0 0 12px}

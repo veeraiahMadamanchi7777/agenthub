@@ -1,7 +1,7 @@
 /** Secondary ghost button. */
-export function GhostBtn({ children, onClick, small, className = '' }) {
+export function GhostBtn({ children, onClick, small, disabled, className = '' }) {
   return (
-    <button onClick={onClick} className={`btn btn-ghost${small ? ' btn-sm' : ''} ${className}`.trim()}>
+    <button onClick={onClick} disabled={disabled} className={`btn btn-ghost${small ? ' btn-sm' : ''} ${className}`.trim()}>
       {children}
     </button>
   );

@@ -1,8 +1,10 @@
-/** Boot terminal modal — simulates sandbox provisioning from mock JSON. */
+/** Boot terminal modal — animates a boot sequence while a real container starts underneath. */
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBoot } from '../../context/BootProvider.jsx';
 import { useBootSequence } from '../../hooks/useBootSequence.js';
 import { useToast } from '../../context/ToastProvider.jsx';
+import { startRun } from '../../api/runsApi.js';
 import { PrimaryBtn } from '../ui/PrimaryBtn.jsx';
 import { GhostBtn } from '../ui/GhostBtn.jsx';
 
@@ -17,15 +19,30 @@ export function BootModal() {
   const { lines, done } = useBootSequence(!!agent);
   const nav = useNavigate();
   const { show } = useToast();
+  const [sessionId, setSessionId] = useState(null);
+  const [runError, setRunError] = useState(null);
+
+  // Kick off the real container as soon as the modal opens, in parallel with
+  // the cosmetic boot animation above.
+  useEffect(() => {
+    if (!agent) { setSessionId(null); setRunError(null); return; }
+    setSessionId(null);
+    setRunError(null);
+    startRun(agent.slug)
+      .then((data) => setSessionId(data.sessionId))
+      .catch((e) => setRunError(e.message || 'Could not reach the run server.'));
+  }, [agent]);
+
   if (!agent) return null;
+
   const open = () => {
     closeBoot();
-    if (agent.kind === 'embedded') {
-      nav(`/sessions/embed/${agent.slug}`);
+    if (sessionId) {
+      nav(`/sessions/run/${sessionId}`);
+      show('Session started', 'success');
     } else {
-      nav('/sessions/s1');
+      show(runError || 'Run server unreachable — start it with `npm run server`.', 'error');
     }
-    show('Session started', 'success');
   };
   return (
     <div className="modal-backdrop">

@@ -15,6 +15,13 @@ export function SidebarIcon({ name }) {
       </svg>
     );
   }
+  if (name === 'schedule') {
+    return (
+      <svg {...props}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3M5 11h14M5 7h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2z" />
+      </svg>
+    );
+  }
   if (name === 'setup') {
     return (
       <svg {...props}>

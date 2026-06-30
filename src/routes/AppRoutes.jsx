@@ -8,9 +8,11 @@ import { WikiEntryPage } from '../pages/WikiEntryPage.jsx';
 import { SessionsPage } from '../pages/SessionsPage.jsx';
 import { SessionPage } from '../pages/SessionPage.jsx';
 import { EmbeddedSessionPage } from '../pages/EmbeddedSessionPage.jsx';
+import { RunSessionPage } from '../pages/RunSessionPage.jsx';
 import { StudioPage } from '../pages/StudioPage.jsx';
 import { AskPage } from '../pages/AskPage.jsx';
 import { SetupPage } from '../pages/SetupPage.jsx';
+import { SchedulePage } from '../pages/SchedulePage.jsx';
 import { AuthModal } from '../components/auth/AuthModal.jsx';
 import { RegisterModal } from '../components/auth/RegisterModal.jsx';
 import { BootModal } from '../components/boot/BootModal.jsx';
@@ -26,8 +28,10 @@ export function AppRoutes() {
           <Route path="/wiki" element={<WikiIndexPage />} />
           <Route path="/wiki/:slug" element={<WikiEntryPage />} />
           <Route path="/sessions" element={<SessionsPage />} />
+          <Route path="/schedule" element={<SchedulePage />} />
           <Route path="/sessions/:id" element={<SessionPage />} />
           <Route path="/sessions/embed/:slug" element={<EmbeddedSessionPage />} />
+          <Route path="/sessions/run/:sessionId" element={<RunSessionPage />} />
           <Route path="/ask" element={<AskPage />} />
           <Route path="/setup" element={<SetupPage />} />
           <Route path="/studio" element={<StudioPage />} />
