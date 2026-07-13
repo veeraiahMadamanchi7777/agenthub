@@ -1,0 +1,117 @@
+/** Mobile — drawer nav, responsive layouts, touch targets. */
+
+/* ── Base (hidden until mobile breakpoint) ── */
+.navbar-menu-btn{
+  display:none;align-items:center;justify-content:center;
+  width:40px;height:40px;flex-shrink:0;border-radius:10px;
+  color:var(--tx);background:transparent;transition:background .15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.navbar-menu-btn:hover{background:var(--bg-hover)}
+.navbar-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.nav-btn-register-short{display:none}
+.sidebar-backdrop{display:none}
+
+@media (max-width:768px){
+  :root{--nav-pad:16px;--nav-gap:8px}
+
+  /* ── Menu button + overlay ── */
+  .navbar-menu-btn{display:flex}
+  .sidebar-backdrop{
+    display:block;position:fixed;inset:0;z-index:150;
+    background:rgba(0,0,0,.45);border:none;cursor:pointer;
+    animation:mobileFadeIn .2s ease;
+  }
+  @keyframes mobileFadeIn{from{opacity:0}to{opacity:1}}
+
+  /* ── Sidebar drawer ── */
+  .shell-body{position:relative}
+  .shell-main{width:100%}
+  .sidebar{
+    position:fixed;left:0;top:0;height:100dvh;
+    width:min(280px,85vw);z-index:200;
+    transform:translateX(-100%);
+    transition:transform .22s ease;
+    padding-top:max(12px,env(safe-area-inset-top));
+    padding-bottom:max(12px,env(safe-area-inset-bottom));
+  }
+  .sidebar--mobile-open{
+    transform:translateX(0);
+    box-shadow:4px 0 24px rgba(0,0,0,.12);
+  }
+  .sidebar--collapsed{width:min(280px,85vw)}
+
+  /* ── Navbar ── */
+  .navbar-inner{padding:8px var(--nav-pad);gap:8px}
+  .navbar-extra{width:auto;gap:6px}
+  .navbar-search-form{max-width:none}
+  .navbar-search-input{font-size:16px}
+  .nav-btn-signin{display:none}
+  .nav-btn-register-full{display:none}
+  .nav-btn-register-short{display:inline}
+  .nav-btn-dark{padding:6px 12px;font-size:13px}
+
+  /* ── Browse ── */
+  .browse-theme-spacer,.browse-extra-spacer{display:none}
+  .browse-layout{padding:12px var(--nav-pad) 48px}
+  .filter-bar{flex-wrap:wrap;gap:8px}
+  .agent-item{min-height:auto}
+  .agent-item-inner{grid-template-columns:1fr;gap:12px;padding:16px 0}
+  .agent-item-name{font-size:18px;white-space:normal}
+  .agent-run-btn{width:100%;padding:10px 0}
+
+  /* ── Pages ── */
+  .page{padding:20px var(--nav-pad) 40px}
+  .page-header-row{flex-direction:column;align-items:stretch}
+  .wiki-index{padding:20px var(--nav-pad) 48px}
+  .wiki-index-title{font-size:24px}
+  .wiki-grid{grid-template-columns:1fr}
+  .wiki-doc-header{padding:12px var(--nav-pad);gap:10px}
+  .wiki-doc-body{padding:24px var(--nav-pad) 64px}
+  .wiki-readme .markdown-body h1{font-size:28px}
+  .wiki-readme .markdown-body{font-size:15px}
+  .ask-wiki-toolbar{flex-wrap:wrap}
+  .ask-wiki-picker-item{flex-wrap:wrap;align-items:flex-start}
+
+  /* ── Footer ── */
+  .footer-inner{
+    flex-direction:column;gap:12px;
+    padding:16px var(--nav-pad);text-align:center;
+  }
+
+  /* ── Sessions ── */
+  .session-layout{flex-direction:column}
+  .session-main{padding:20px var(--nav-pad)}
+  .context-panel,.chat-panel{
+    position:static;width:100%!important;height:auto;
+    border-left:none;border-top:1px solid var(--bd);
+  }
+  .session-feed{max-height:50vh}
+
+  /* ── Modals & toasts ── */
+  .modal-backdrop{padding:12px;align-items:flex-end}
+  .modal{border-radius:16px 16px 0 0;max-height:90dvh;overflow-y:auto}
+  .toast{
+    left:16px;right:16px;bottom:max(16px,env(safe-area-inset-bottom));
+    text-align:center;
+  }
+
+  /* ── Schedule / setup ── */
+  .schedule-item{flex-direction:column}
+  .schedule-item-actions{flex-direction:row;width:100%}
+  .schedule-toggle,.schedule-delete{flex:1;text-align:center}
+
+  /* ── Embeds & runs ── */
+  .embed-header{padding:10px var(--nav-pad);flex-wrap:wrap;gap:8px}
+  .embed-open-ext span{display:none}
+  .run-log-panel{min-height:160px}
+
+  /* ── Widgets ── */
+  .reels-sidebar{display:none}
+}
+
+@media (max-width:480px){
+  .agent-item-tags{flex-wrap:wrap}
+  .agent-item-stats{gap:10px}
+  .nav-btn-dark{padding:6px 10px;font-size:12px}
+}

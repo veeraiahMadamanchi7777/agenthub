@@ -3,6 +3,22 @@ import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthProvider.jsx';
 import { useSearch } from '../../context/SearchProvider.jsx';
 import { ThemeToggle } from '../ui/ThemeToggle.jsx';
+import { NavMenuButton } from './NavMenuButton.jsx';
+
+function NavActions({ authed, setAuthOpen, setRegisterOpen }) {
+  return (
+    <div className="navbar-actions">
+      <ThemeToggle />
+      {!authed && (
+        <button type="button" className="nav-btn-ghost nav-btn-signin" onClick={() => setAuthOpen(true)}>Sign in</button>
+      )}
+      <button type="button" className="nav-btn-dark" onClick={() => setRegisterOpen(true)}>
+        <span className="nav-btn-register-full">Register agent</span>
+        <span className="nav-btn-register-short">Register</span>
+      </button>
+    </div>
+  );
+}
 
 export function NavBar() {
   const { authed, setAuthOpen, setRegisterOpen } = useAuth();
@@ -14,6 +30,7 @@ export function NavBar() {
     return (
       <header className="navbar">
         <nav className="navbar-inner navbar-inner--home">
+          <NavMenuButton />
           <div className="navbar-search-rail">
             <div className="navbar-search-form">
               <div className="navbar-search">
@@ -33,12 +50,8 @@ export function NavBar() {
               </div>
             </div>
           </div>
-          <div className="navbar-theme-slot"><ThemeToggle /></div>
           <div className={`navbar-extra${authed ? ' navbar-extra--authed' : ''}`}>
-            {!authed && (
-              <button className="nav-btn-ghost" onClick={() => setAuthOpen(true)}>Sign in</button>
-            )}
-            <button className="nav-btn-dark" onClick={() => setRegisterOpen(true)}>Register agent</button>
+            <NavActions authed={authed} setAuthOpen={setAuthOpen} setRegisterOpen={setRegisterOpen} />
           </div>
         </nav>
       </header>
@@ -48,13 +61,10 @@ export function NavBar() {
   return (
     <header className="navbar">
       <nav className="navbar-inner">
+        <NavMenuButton />
         <div className="navbar-spacer" aria-hidden="true" />
         <div className="navbar-right">
-          <ThemeToggle />
-          {!authed && (
-            <button className="nav-btn-ghost" onClick={() => setAuthOpen(true)}>Sign in</button>
-          )}
-          <button className="nav-btn-dark" onClick={() => setRegisterOpen(true)}>Register agent</button>
+          <NavActions authed={authed} setAuthOpen={setAuthOpen} setRegisterOpen={setRegisterOpen} />
         </div>
       </nav>
     </header>

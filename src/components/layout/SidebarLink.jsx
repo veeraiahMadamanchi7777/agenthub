@@ -2,8 +2,16 @@
 import { NavLink } from 'react-router-dom';
 import { SidebarIcon } from './SidebarIcon.jsx';
 
-export function SidebarLink({ item, authed, onAuth, badge, collapsed }) {
-  const guard = (e) => { if (item.auth && !authed) { e.preventDefault(); onAuth(); } };
+export function SidebarLink({ item, authed, onAuth, badge, collapsed, onNavigate }) {
+  const guard = (e) => {
+    if (item.auth && !authed) {
+      e.preventDefault();
+      onAuth();
+      return;
+    }
+    onNavigate?.();
+  };
+
   return (
     <NavLink
       to={item.path}

@@ -8,13 +8,19 @@ import { SidebarLink } from './SidebarLink.jsx';
 
 export function Sidebar() {
   const { authed, setAuthOpen } = useAuth();
-  const { collapsed, toggle } = useSidebar();
+  const { collapsed, toggle, mobileOpen, closeMobile } = useSidebar();
   const { running } = useSessions();
+  const compact = collapsed && !mobileOpen;
+
+  const onToggle = () => {
+    if (mobileOpen) closeMobile();
+    else toggle();
+  };
 
   return (
-    <aside className={`sidebar${collapsed ? ' sidebar--collapsed' : ''}`}>
+    <aside className={`sidebar${compact ? ' sidebar--collapsed' : ''}${mobileOpen ? ' sidebar--mobile-open' : ''}`}>
       <div className="sidebar-header">
-        <Logo compact={collapsed} />
+        <Logo compact={compact} onClick={mobileOpen ? closeMobile : undefined} />
       </div>
 
       <nav className="sidebar-nav">
@@ -23,8 +29,9 @@ export function Sidebar() {
             key={item.id}
             item={item}
             authed={authed}
-            collapsed={collapsed}
+            collapsed={compact}
             onAuth={() => setAuthOpen(true)}
+            onNavigate={closeMobile}
             badge={item.id === 'runs' ? running : 0}
           />
         ))}
@@ -34,17 +41,16 @@ export function Sidebar() {
         <button
           type="button"
           className="sidebar-toggle"
-          onClick={toggle}
-          aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          onClick={onToggle}
+          aria-label={compact ? 'Expand sidebar' : 'Collapse sidebar'}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true">
             <rect x="3.5" y="4.5" width="17" height="15" rx="2" />
             <path strokeLinecap="round" d="M9.5 4.5v15" />
-            {!collapsed && <path strokeLinecap="round" strokeLinejoin="round" d="M14 12H19" />}
-            {collapsed && <path strokeLinecap="round" strokeLinejoin="round" d="M12 12H19" />}
+            {!compact && <path strokeLinecap="round" strokeLinejoin="round" d="M14 12H19" />}
+            {compact && <path strokeLinecap="round" strokeLinejoin="round" d="M12 12H19" />}
           </svg>
-          {!collapsed && <span>Collapse</span>}
+          {!compact && <span>Collapse</span>}
         </button>
       </div>
     </aside>
