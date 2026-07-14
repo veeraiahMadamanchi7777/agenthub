@@ -176,6 +176,42 @@
 .edit-val-badge--ok{color:#166534;background:#f0fdf4}
 .edit-val-badge--err{color:#991b1b;background:#fef2f2}
 .edit-val-badge--custom{color:#92400e;background:#fffbeb}
+.reg-section-label{font-size:12px;font-weight:600;color:var(--tx-d);margin:12px 0 8px}
+.envvar-row{display:grid;grid-template-columns:1fr 1fr auto auto;gap:6px;align-items:center;margin-bottom:6px}
+.envvar-key{padding:7px 10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg-input);color:var(--tx);font-family:'JetBrains Mono',monospace;font-size:12px;width:100%}
+.envvar-desc{padding:7px 10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg-input);color:var(--tx);font-size:13px;width:100%}
+.envvar-required{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--tx-d);white-space:nowrap;cursor:pointer}
+.envvar-remove{color:var(--tx-d);padding:4px 6px;border-radius:6px;font-size:12px;line-height:1}
+.envvar-remove:hover{background:var(--bg-hover);color:var(--tx)}
+.envvar-add{font-size:13px;color:var(--tx-m);padding:4px 0;margin-bottom:8px;background:none;border:none;cursor:pointer;text-align:left}
+.envvar-add:hover{color:var(--tx)}
+.io-toggle-group{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.io-toggle{padding:4px 12px;border-radius:9999px;border:1px solid var(--bd);background:var(--bg);color:var(--tx-m);font-size:12px;font-weight:500;cursor:pointer;transition:all .15s}
+.io-toggle:hover{border-color:var(--bd-strong);color:var(--tx)}
+.io-toggle--on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.card-preview-io{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--tx-d);padding:4px 0 8px;flex-wrap:wrap}
+.io-label{color:var(--tx-m)}
+.io-arrow{color:var(--tx-d)}
+.detail-io{display:flex;align-items:center;gap:10px;margin:8px 0 16px;flex-wrap:wrap}
+.detail-io-group{display:flex;align-items:center;gap:6px}
+.detail-io-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--tx-d)}
+.detail-io-tag{padding:2px 10px;border-radius:6px;background:var(--bg-hover);color:var(--tx-m);font-size:12px;font-weight:500}
+.detail-io-arrow{color:var(--tx-d);font-size:14px}
+.readme-preview-panel{display:flex;flex-direction:column;height:100%}
+.readme-preview-body{flex:1;overflow-y:auto;font-size:13px;line-height:1.7;padding:4px 0}
+.readme-preview-body h1,.readme-preview-body h2,.readme-preview-body h3{margin:12px 0 6px;font-weight:600}
+.readme-preview-body p{margin:0 0 10px}
+.readme-preview-body code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--bg-hover);padding:1px 5px;border-radius:4px}
+.readme-preview-body pre{background:var(--bg-hover);padding:10px 12px;border-radius:8px;overflow-x:auto;margin:0 0 10px}
+.readme-preview-body pre code{background:none;padding:0}
+.boot-env-hint{font-size:14px;color:var(--tx-m);margin:0 0 16px;line-height:1.6}
+.boot-env-row{margin-bottom:14px}
+.boot-env-label{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--tx-m);margin-bottom:6px}
+.boot-env-required{font-size:11px;font-weight:600;text-transform:uppercase;color:#dc2626;letter-spacing:.04em}
+.boot-env-desc{font-size:12px;color:var(--tx-d);font-weight:400}
+.boot-env-input{border-radius:9999px;margin-bottom:0}
+.boot-env-input--error{border-color:#dc2626}
+.boot-env-error{font-size:13px;color:#dc2626;margin-top:8px}
 .modal-close{color:var(--tx-d);padding:4px;border-radius:9999px}
 .modal-close:hover{color:var(--tx);background:var(--bg-hover)}
 .input{width:100%;padding:10px 14px;border:1px solid var(--bd);border-radius:9999px;background:var(--bg-input);color:var(--tx);margin-bottom:12px}

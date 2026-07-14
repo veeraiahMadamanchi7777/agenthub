@@ -1,6 +1,7 @@
 /** Register agent modal — collects all fields needed to list and run an agent. */
 import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Markdown from 'react-markdown';
 import { useAuth } from '../../context/AuthProvider.jsx';
 import { useToast } from '../../context/ToastProvider.jsx';
 import { getCategories, registerAgent } from '../../api/agentsApi.js';
@@ -12,6 +13,9 @@ import { AgentCardPreview } from '../browse/AgentCardPreview.jsx';
 import { MiniTerminal } from '../session/MiniTerminal.jsx';
 
 const STEPS = ['Basic info', 'Docker config', 'Tags & style', 'README'];
+
+const INPUT_TYPES  = ['text', 'file', 'URL', 'JSON', 'image', 'audio'];
+const OUTPUT_TYPES = ['text', 'report', 'code', 'image', 'JSON', 'chart'];
 
 function Field({ label, hint, children }) {
   return (
@@ -88,6 +92,9 @@ export function RegisterModal() {
   const [models, setModels]           = useState('');
   const [color, setColor]             = useState('#6366f1');
   const [readme, setReadme]           = useState('');
+  const [envVars, setEnvVars]         = useState([]); // [{ key, desc, required }]
+  const [inputs, setInputs]           = useState([]);
+  const [outputs, setOutputs]         = useState([]);
 
   const { validationState, validate, resetValidation } = useImageValidation();
 
@@ -107,6 +114,7 @@ export function RegisterModal() {
     setName(''); setAuthor(''); setDesc(''); setCategory('');
     setDockerImage(''); setDockerPort(''); setEmbed(false);
     setCaps(''); setModels(''); setColor('#6366f1'); setReadme('');
+    setEnvVars([]); setInputs([]); setOutputs([]);
     resetValidation();
   };
 
@@ -153,7 +161,7 @@ export function RegisterModal() {
     if (!readme.trim()) { show('README is required', 'info'); return; }
     setSubmitting(true);
     try {
-      const agent = await registerAgent({ name, author, desc, category, dockerImage, dockerPort: dockerPort || null, embed, caps, models, color, readme });
+      const agent = await registerAgent({ name, author, desc, category, dockerImage, dockerPort: dockerPort || null, embed, caps, models, color, readme, envVars, inputs, outputs });
       show(`"${agent.name}" registered successfully!`, 'success');
       close();
       nav(`/library/${agent.slug}`);
@@ -165,8 +173,9 @@ export function RegisterModal() {
   };
 
   const parseTags = (v) => v.split(',').map((s) => s.trim()).filter(Boolean);
-  const showTerminal = step === 1 && testSessionId;
+  const showTerminal   = step === 1 && testSessionId;
   const showValidation = step === 1 && !testSessionId;
+  const showReadme     = step === 3;
 
   return (
     <div className="modal-backdrop">
@@ -235,11 +244,39 @@ export function RegisterModal() {
                     </GhostBtn>
                     <span className="reg-hint">Spin up the container and see real logs</span>
                   </div>
+
+                  <div className="reg-section-label">Environment variables<span className="reg-hint"> — API keys and secrets the agent needs at runtime</span></div>
+                  {envVars.map((v, i) => (
+                    <div key={i} className="envvar-row">
+                      <input className="envvar-key" placeholder="KEY_NAME" value={v.key} onChange={(e) => setEnvVars(ev => ev.map((r, j) => j === i ? { ...r, key: e.target.value.toUpperCase().replace(/[^A-Z0-9_]/g, '_') } : r))} />
+                      <input className="envvar-desc" placeholder="Description" value={v.desc} onChange={(e) => setEnvVars(ev => ev.map((r, j) => j === i ? { ...r, desc: e.target.value } : r))} />
+                      <label className="envvar-required">
+                        <input type="checkbox" checked={v.required} onChange={(e) => setEnvVars(ev => ev.map((r, j) => j === i ? { ...r, required: e.target.checked } : r))} />
+                        req
+                      </label>
+                      <button className="envvar-remove" onClick={() => setEnvVars(ev => ev.filter((_, j) => j !== i))}>✕</button>
+                    </div>
+                  ))}
+                  <button className="envvar-add" onClick={() => setEnvVars(ev => [...ev, { key: '', desc: '', required: false }])}>+ Add variable</button>
                 </>
               )}
 
               {step === 2 && (
                 <>
+                  <Field label="Input types" hint="what the agent accepts">
+                    <div className="io-toggle-group">
+                      {INPUT_TYPES.map((t) => (
+                        <button key={t} className={`io-toggle${inputs.includes(t) ? ' io-toggle--on' : ''}`} onClick={() => setInputs(v => v.includes(t) ? v.filter(x => x !== t) : [...v, t])}>{t}</button>
+                      ))}
+                    </div>
+                  </Field>
+                  <Field label="Output types" hint="what the agent produces">
+                    <div className="io-toggle-group">
+                      {OUTPUT_TYPES.map((t) => (
+                        <button key={t} className={`io-toggle${outputs.includes(t) ? ' io-toggle--on' : ''}`} onClick={() => setOutputs(v => v.includes(t) ? v.filter(x => x !== t) : [...v, t])}>{t}</button>
+                      ))}
+                    </div>
+                  </Field>
                   <Field label="Capabilities" hint="comma-separated, e.g. web-search, tools, RAG">
                     <input className="input" placeholder="web-search, long-form, tools" value={caps} onChange={(e) => setCaps(e.target.value)} />
                   </Field>
@@ -290,6 +327,15 @@ export function RegisterModal() {
           <div className="reg-right">
             {showTerminal ? (
               <MiniTerminal sessionId={testSessionId} onStopped={onTestStopped} />
+            ) : showReadme ? (
+              <div className="readme-preview-panel">
+                <p className="card-preview-label">README preview</p>
+                <div className="readme-preview-body markdown-body">
+                  {readme
+                    ? <Markdown>{readme}</Markdown>
+                    : <p className="reg-validation-hint">Start typing or upload a README to see the preview.</p>}
+                </div>
+              </div>
             ) : (
               <>
                 {showValidation && (
@@ -308,6 +354,8 @@ export function RegisterModal() {
                   caps={parseTags(caps)}
                   models={parseTags(models)}
                   color={color}
+                  inputs={inputs}
+                  outputs={outputs}
                 />
               </>
             )}

@@ -9,6 +9,9 @@ import { PrimaryBtn } from '../ui/PrimaryBtn.jsx';
 import { GhostBtn } from '../ui/GhostBtn.jsx';
 import { AgentCardPreview } from '../browse/AgentCardPreview.jsx';
 
+const INPUT_TYPES  = ['text', 'file', 'URL', 'JSON', 'image', 'audio'];
+const OUTPUT_TYPES = ['text', 'report', 'code', 'image', 'JSON', 'chart'];
+
 function Field({ label, hint, children }) {
   return (
     <div className="reg-field">
@@ -39,6 +42,9 @@ export function EditAgentModal() {
   const [models, setModels]           = useState('');
   const [color, setColor]             = useState('#6366f1');
   const [readme, setReadme]           = useState('');
+  const [envVars, setEnvVars]         = useState([]);
+  const [inputs, setInputs]           = useState([]);
+  const [outputs, setOutputs]         = useState([]);
 
   const { validationState, validate, resetValidation } = useImageValidation();
 
@@ -56,6 +62,9 @@ export function EditAgentModal() {
     setModels((editAgent.models || []).join(', '));
     setColor(editAgent.color || '#6366f1');
     setReadme('');
+    setEnvVars(editAgent.envVars || []);
+    setInputs(editAgent.inputs || []);
+    setOutputs(editAgent.outputs || []);
     resetValidation();
     setConfirmDelete(false);
   }, [editAgent, resetValidation]);
@@ -89,6 +98,7 @@ export function EditAgentModal() {
         name, author, desc, category, dockerImage,
         dockerPort: dockerPort || null, embed, caps, models, color,
         readme: readme || undefined,
+        envVars, inputs, outputs,
       });
       show(`"${name}" updated`, 'success');
       close();
@@ -183,6 +193,39 @@ export function EditAgentModal() {
                 </label>
               </Field>
 
+              <div className="edit-section-divider">Environment variables</div>
+              <p className="reg-validation-hint" style={{ marginBottom: 10 }}>API keys and secrets the agent needs at runtime</p>
+              {envVars.map((v, i) => (
+                <div key={i} className="envvar-row">
+                  <input className="envvar-key" placeholder="KEY_NAME" value={v.key} onChange={(e) => setEnvVars(ev => ev.map((r, j) => j === i ? { ...r, key: e.target.value.toUpperCase().replace(/[^A-Z0-9_]/g, '_') } : r))} />
+                  <input className="envvar-desc" placeholder="Description" value={v.desc} onChange={(e) => setEnvVars(ev => ev.map((r, j) => j === i ? { ...r, desc: e.target.value } : r))} />
+                  <label className="envvar-required">
+                    <input type="checkbox" checked={v.required} onChange={(e) => setEnvVars(ev => ev.map((r, j) => j === i ? { ...r, required: e.target.checked } : r))} />
+                    req
+                  </label>
+                  <button className="envvar-remove" onClick={() => setEnvVars(ev => ev.filter((_, j) => j !== i))}>✕</button>
+                </div>
+              ))}
+              <button className="envvar-add" onClick={() => setEnvVars(ev => [...ev, { key: '', desc: '', required: false }])}>+ Add variable</button>
+
+              <div className="edit-section-divider">I/O schema</div>
+              <div className="reg-field">
+                <label className="reg-label">Input types<span className="reg-hint"> what the agent accepts</span></label>
+                <div className="io-toggle-group">
+                  {INPUT_TYPES.map((t) => (
+                    <button key={t} className={`io-toggle${inputs.includes(t) ? ' io-toggle--on' : ''}`} onClick={() => setInputs(v => v.includes(t) ? v.filter(x => x !== t) : [...v, t])}>{t}</button>
+                  ))}
+                </div>
+              </div>
+              <div className="reg-field">
+                <label className="reg-label">Output types<span className="reg-hint"> what the agent produces</span></label>
+                <div className="io-toggle-group">
+                  {OUTPUT_TYPES.map((t) => (
+                    <button key={t} className={`io-toggle${outputs.includes(t) ? ' io-toggle--on' : ''}`} onClick={() => setOutputs(v => v.includes(t) ? v.filter(x => x !== t) : [...v, t])}>{t}</button>
+                  ))}
+                </div>
+              </div>
+
               <div className="edit-section-divider">Tags & style</div>
 
               <Field label="Capabilities" hint="comma-separated">
@@ -248,6 +291,8 @@ export function EditAgentModal() {
               caps={parseTags(caps)}
               models={parseTags(models)}
               color={color}
+              inputs={inputs}
+              outputs={outputs}
             />
           </div>
         </div>

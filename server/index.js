@@ -109,7 +109,7 @@ app.get('/api/agents/validate-image', async (req, res) => {
 });
 
 app.post('/api/agents/register', async (req, res) => {
-  const { name, author, desc, category, caps, models, color, dockerImage, dockerPort, embed, readme } = req.body || {};
+  const { name, author, desc, category, caps, models, color, dockerImage, dockerPort, embed, readme, envVars, inputs, outputs } = req.body || {};
 
   if (!name?.trim())        return res.status(400).json({ error: 'name is required' });
   if (!desc?.trim())        return res.status(400).json({ error: 'desc is required' });
@@ -147,6 +147,9 @@ app.post('/api/agents/register', async (req, res) => {
     dockerImage: dockerImage.trim(),
     ...(port ? { containerPort: port, hostPort: port } : {}),
     ...(isEmbed ? { kind: 'embedded', embedUrl: `http://localhost:${port}` } : {}),
+    envVars: Array.isArray(envVars) ? envVars : [],
+    inputs: Array.isArray(inputs) ? inputs : [],
+    outputs: Array.isArray(outputs) ? outputs : [],
   };
 
   agents.push(agent);
@@ -160,7 +163,7 @@ app.post('/api/agents/register', async (req, res) => {
 });
 
 app.post('/api/runs', async (req, res) => {
-  const { slug } = req.body || {};
+  const { slug, userEnv = {} } = req.body || {};
   let config = getRunConfig(slug);
 
   if (!config) {
@@ -171,6 +174,12 @@ app.post('/api/runs', async (req, res) => {
 
   if (!config) {
     return res.status(400).json({ error: `No run config for agent "${slug}".` });
+  }
+
+  // Merge user-supplied env vars (e.g. API keys) into the container env
+  if (Object.keys(userEnv).length > 0) {
+    const extra = Object.entries(userEnv).map(([k, v]) => `${k}=${v}`);
+    config = { ...config, env: [...(config.env || []), ...extra] };
   }
 
   const sessionId = randomUUID();
@@ -207,7 +216,7 @@ app.post('/api/runs', async (req, res) => {
 
 app.put('/api/agents/:slug', async (req, res) => {
   const { slug } = req.params;
-  const { name, author, desc, category, caps, models, color, dockerImage, dockerPort, embed, readme } = req.body || {};
+  const { name, author, desc, category, caps, models, color, dockerImage, dockerPort, embed, readme, envVars, inputs, outputs } = req.body || {};
 
   const agents = JSON.parse(await readFile(AGENTS_PATH, 'utf8'));
   const idx = agents.findIndex((a) => a.slug === slug);
@@ -234,6 +243,9 @@ app.put('/api/agents/:slug', async (req, res) => {
     ...(isEmbed
       ? { kind: 'embedded', embedUrl: `http://localhost:${port}` }
       : { kind: undefined, embedUrl: undefined }),
+    ...(Array.isArray(envVars)  && { envVars }),
+    ...(Array.isArray(inputs)   && { inputs }),
+    ...(Array.isArray(outputs)  && { outputs }),
   };
 
   agents[idx] = updated;

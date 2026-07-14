@@ -1,5 +1,5 @@
 /** Read-only agent card preview — mirrors AgentRow markup so the preview is pixel-identical to the catalog. */
-export function AgentCardPreview({ name, author, desc, caps, models, color }) {
+export function AgentCardPreview({ name, author, desc, caps, models, color, inputs = [], outputs = [] }) {
   const displayName = name.trim() || 'agent-name';
   const displayDesc = desc.trim() || 'Your agent description will appear here.';
   const displayAuthor = author.trim() || 'author';
@@ -40,6 +40,13 @@ export function AgentCardPreview({ name, author, desc, caps, models, color }) {
               </span>
             </p>
           </div>
+          {(inputs.length > 0 || outputs.length > 0) && (
+            <div className="card-preview-io" style={{ gridColumn: '2' }}>
+              {inputs.length > 0 && <span className="io-label">In: {inputs.join(', ')}</span>}
+              {inputs.length > 0 && outputs.length > 0 && <span className="io-arrow">→</span>}
+              {outputs.length > 0 && <span className="io-label">Out: {outputs.join(', ')}</span>}
+            </div>
+          )}
           <button className="agent-run-btn" disabled tabIndex={-1} aria-hidden="true">Run</button>
         </div>
       </div>

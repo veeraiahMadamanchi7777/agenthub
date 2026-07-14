@@ -44,6 +44,13 @@ export function AgentDetailPage() {
           {a.caps.map((c) => <CapTag key={c} label={c} />)}
           {a.models.map((m) => <ModelTag key={m} label={m} />)}
         </div>
+        {(a.inputs?.length > 0 || a.outputs?.length > 0) && (
+          <div className="detail-io">
+            {a.inputs?.length > 0 && <span className="detail-io-group"><span className="detail-io-label">In</span>{a.inputs.map(t => <span key={t} className="detail-io-tag">{t}</span>)}</span>}
+            {a.inputs?.length > 0 && a.outputs?.length > 0 && <span className="detail-io-arrow">→</span>}
+            {a.outputs?.length > 0 && <span className="detail-io-group"><span className="detail-io-label">Out</span>{a.outputs.map(t => <span key={t} className="detail-io-tag">{t}</span>)}</span>}
+          </div>
+        )}
         <div className="flex-row">
           <PrimaryBtn onClick={() => requireAuth(() => openBoot(a))} disabled={!a.runnable}>Run agent</PrimaryBtn>
           <Link to={`/library/${slug}`}><GhostBtn>View docs</GhostBtn></Link>

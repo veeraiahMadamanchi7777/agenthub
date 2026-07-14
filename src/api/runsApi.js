@@ -10,11 +10,11 @@ export async function startTestRun({ dockerImage, dockerPort, embed }) {
   return res.json();
 }
 
-export async function startRun(slug) {
+export async function startRun(slug, { userEnv = {} } = {}) {
   const res = await fetch('/api/runs', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ slug }),
+    body: JSON.stringify({ slug, userEnv }),
   });
   if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Failed to start run');
   return res.json();
