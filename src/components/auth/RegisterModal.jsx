@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import { useAuth } from '../../context/AuthProvider.jsx';
 import { useToast } from '../../context/ToastProvider.jsx';
-import { getCategories, registerAgent } from '../../api/agentsApi.js';
+import { getCategories, registerAgent, invalidateAgents } from '../../api/agentsApi.js';
 import { startTestRun } from '../../api/runsApi.js';
 import { useImageValidation } from '../../hooks/useImageValidation.js';
 import { PrimaryBtn } from '../ui/PrimaryBtn.jsx';
@@ -70,6 +70,8 @@ function ValidationBadge({ state }) {
   return null;
 }
 
+const toSlug = (n) => n.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
 export function RegisterModal() {
   const { registerOpen, setRegisterOpen } = useAuth();
   const { show } = useToast();
@@ -77,7 +79,10 @@ export function RegisterModal() {
 
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
+  const [registeredAgent, setRegisteredAgent] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [addingCategory, setAddingCategory] = useState(false);
+  const [newCategory, setNewCategory] = useState('');
   const [testSessionId, setTestSessionId] = useState(null);
   const [testing, setTesting] = useState(false);
 
@@ -108,14 +113,36 @@ export function RegisterModal() {
 
   if (!registerOpen) return null;
 
-  const close = () => {
-    setRegisterOpen(false);
-    setStep(0); setTestSessionId(null); setTesting(false);
+  const resetForm = () => {
+    setStep(0); setRegisteredAgent(null); setTestSessionId(null); setTesting(false);
     setName(''); setAuthor(''); setDesc(''); setCategory('');
     setDockerImage(''); setDockerPort(''); setEmbed(false);
     setCaps(''); setModels(''); setColor('#6366f1'); setReadme('');
     setEnvVars([]); setInputs([]); setOutputs([]);
+    setAddingCategory(false); setNewCategory('');
     resetValidation();
+  };
+
+  const close = () => { setRegisterOpen(false); resetForm(); };
+
+  const onCategorySelectChange = (e) => {
+    if (e.target.value === '__new__') {
+      setAddingCategory(true);
+      setCategory('');
+    } else {
+      setCategory(e.target.value);
+      setAddingCategory(false);
+    }
+  };
+
+  const commitNewCategory = () => {
+    const trimmed = newCategory.trim();
+    if (trimmed && !categories.includes(trimmed)) {
+      setCategories((c) => [...c, trimmed]);
+    }
+    if (trimmed) setCategory(trimmed);
+    setAddingCategory(false);
+    setNewCategory('');
   };
 
   const onReadmeFile = (e) => {
@@ -162,9 +189,8 @@ export function RegisterModal() {
     setSubmitting(true);
     try {
       const agent = await registerAgent({ name, author, desc, category, dockerImage, dockerPort: dockerPort || null, embed, caps, models, color, readme, envVars, inputs, outputs });
-      show(`"${agent.name}" registered successfully!`, 'success');
-      close();
-      nav(`/library/${agent.slug}`);
+      invalidateAgents();
+      setRegisteredAgent(agent);
     } catch (err) {
       show(err.message, 'error');
     } finally {
@@ -176,6 +202,43 @@ export function RegisterModal() {
   const showTerminal   = step === 1 && testSessionId;
   const showValidation = step === 1 && !testSessionId;
   const showReadme     = step === 3;
+
+  if (registeredAgent) {
+    const parsedCaps = (registeredAgent.caps || []);
+    const parsedModels = (registeredAgent.models || []);
+    return (
+      <div className="modal-backdrop">
+        <div className="modal modal-register">
+          <div className="modal-header">
+            <h2 className="modal-title">Agent registered!</h2>
+            <button className="modal-close" onClick={close} aria-label="Close">✕</button>
+          </div>
+          <div className="reg-success">
+            <div className="reg-success-check">✓</div>
+            <p className="reg-success-msg">
+              <strong>{registeredAgent.name}</strong> is live in the catalog.
+            </p>
+            <p className="reg-success-slug">/{registeredAgent.slug}</p>
+            <AgentCardPreview
+              name={registeredAgent.name}
+              author={registeredAgent.author}
+              desc={registeredAgent.desc}
+              caps={parsedCaps}
+              models={parsedModels}
+              color={registeredAgent.color}
+              inputs={registeredAgent.inputs || []}
+              outputs={registeredAgent.outputs || []}
+            />
+            <div className="reg-success-actions">
+              <PrimaryBtn onClick={() => { close(); nav(`/agents/${registeredAgent.slug}`); }}>View agent</PrimaryBtn>
+              <GhostBtn onClick={() => { close(); nav(`/library/${registeredAgent.slug}`); }}>View docs</GhostBtn>
+              <GhostBtn onClick={resetForm}>Register another</GhostBtn>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="modal-backdrop">
@@ -202,6 +265,9 @@ export function RegisterModal() {
                 <>
                   <Field label="Agent name" hint="required">
                     <input className="input" placeholder="e.g. my-research-agent" value={name} onChange={(e) => setName(e.target.value)} />
+                    {name.trim() && (
+                      <p className="reg-slug-preview">slug: <code>{toSlug(name)}</code></p>
+                    )}
                   </Field>
                   <Field label="Author / org">
                     <input className="input" placeholder="e.g. your-username" value={author} onChange={(e) => setAuthor(e.target.value)} />
@@ -210,10 +276,26 @@ export function RegisterModal() {
                     <textarea className="input textarea" rows={3} placeholder="What does this agent do?" value={desc} onChange={(e) => setDesc(e.target.value)} />
                   </Field>
                   <Field label="Category" hint="required">
-                    <select className="input" value={category} onChange={(e) => setCategory(e.target.value)}>
-                      <option value="">Select a category…</option>
-                      {categories.map((c) => <option key={c} value={c}>{c}</option>)}
-                    </select>
+                    {addingCategory ? (
+                      <div className="reg-new-category-row">
+                        <input
+                          className="input"
+                          placeholder="New category name…"
+                          value={newCategory}
+                          onChange={(e) => setNewCategory(e.target.value)}
+                          onKeyDown={(e) => e.key === 'Enter' && commitNewCategory()}
+                          autoFocus
+                        />
+                        <PrimaryBtn onClick={commitNewCategory} disabled={!newCategory.trim()}>Add</PrimaryBtn>
+                        <GhostBtn onClick={() => { setAddingCategory(false); setNewCategory(''); }}>Cancel</GhostBtn>
+                      </div>
+                    ) : (
+                      <select className="input" value={category} onChange={onCategorySelectChange}>
+                        <option value="">Select a category…</option>
+                        {categories.map((c) => <option key={c} value={c}>{c}</option>)}
+                        <option value="__new__">+ Add new category…</option>
+                      </select>
+                    )}
                   </Field>
                 </>
               )}

@@ -43,3 +43,7 @@ export async function registerAgent(data) {
   if (!res.ok) throw new Error(json.error || 'Registration failed');
   return json.agent;
 }
+
+export function invalidateAgents() {
+  window.dispatchEvent(new CustomEvent('agents:invalidate'));
+}

@@ -27,6 +27,7 @@ import { runContainer, stopContainer, explainDockerError } from './dockerRunner.
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const AGENTS_PATH = path.join(ROOT, 'public/mock/agents.json');
+const CATEGORIES_PATH = path.join(ROOT, 'public/mock/categories.json');
 
 const PORT = process.env.RUN_SERVER_PORT || 4500;
 const MAX_LOG_LINES = 4000;
@@ -136,8 +137,8 @@ app.post('/api/agents/register', async (req, res) => {
     name: name.trim(),
     author: author?.trim() || 'unknown',
     desc: desc.trim(),
-    pulls: '0',
-    updated: 'just now',
+    pulls: 0,
+    updatedAt: new Date().toISOString(),
     category: category.trim(),
     caps: parseTags(caps),
     models: parseTags(models),
@@ -154,6 +155,13 @@ app.post('/api/agents/register', async (req, res) => {
 
   agents.push(agent);
   await writeFile(AGENTS_PATH, JSON.stringify(agents, null, 2));
+
+  // Add category to categories.json if it's new
+  const cats = JSON.parse(await readFile(CATEGORIES_PATH, 'utf8'));
+  if (!cats.includes(agent.category)) {
+    cats.push(agent.category);
+    await writeFile(CATEGORIES_PATH, JSON.stringify(cats, null, 2));
+  }
 
   const readmeDir = path.join(ROOT, 'public/readmes', slug);
   await mkdir(readmeDir, { recursive: true });
@@ -197,6 +205,16 @@ app.post('/api/runs', async (req, res) => {
   sessions.set(sessionId, session);
 
   res.json({ sessionId, slug, status: session.status, embedUrl: session.embedUrl });
+
+  // Fire-and-forget: increment pull count for registered agents
+  readFile(AGENTS_PATH, 'utf8').then((raw) => {
+    const agents = JSON.parse(raw);
+    const idx = agents.findIndex((a) => a.slug === slug);
+    if (idx !== -1 && typeof agents[idx].pulls === 'number') {
+      agents[idx].pulls += 1;
+      return writeFile(AGENTS_PATH, JSON.stringify(agents, null, 2));
+    }
+  }).catch(() => {});
 
   try {
     const container = await runContainer(
@@ -246,10 +264,20 @@ app.put('/api/agents/:slug', async (req, res) => {
     ...(Array.isArray(envVars)  && { envVars }),
     ...(Array.isArray(inputs)   && { inputs }),
     ...(Array.isArray(outputs)  && { outputs }),
+    updatedAt: new Date().toISOString(),
   };
 
   agents[idx] = updated;
   await writeFile(AGENTS_PATH, JSON.stringify(agents, null, 2));
+
+  // Add category if new
+  if (category?.trim()) {
+    const cats = JSON.parse(await readFile(CATEGORIES_PATH, 'utf8'));
+    if (!cats.includes(updated.category)) {
+      cats.push(updated.category);
+      await writeFile(CATEGORIES_PATH, JSON.stringify(cats, null, 2));
+    }
+  }
 
   if (readme?.trim()) {
     const readmeDir = path.join(ROOT, 'public/readmes', slug);

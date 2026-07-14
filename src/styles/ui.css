@@ -302,3 +302,18 @@
 .reel-mini-body{padding:14px 14px 16px}
 .reel-mini-title{margin:0 0 6px;font-size:13px;font-weight:600;color:var(--tx);line-height:1.35}
 .reel-mini-desc{margin:0;font-size:12px;color:var(--tx-m);line-height:1.6}
+
+/* ── Registration: slug preview ── */
+.reg-slug-preview{margin:4px 0 0;font-size:12px;color:var(--tx-d)}
+.reg-slug-preview code{font-family:'JetBrains Mono',monospace;background:var(--bg-hover);padding:1px 5px;border-radius:4px;font-size:11px}
+
+/* ── Registration: new category inline input ── */
+.reg-new-category-row{display:flex;gap:8px;align-items:center}
+.reg-new-category-row .input{flex:1}
+
+/* ── Registration: success / confirmation screen ── */
+.reg-success{display:flex;flex-direction:column;align-items:center;gap:16px;padding:32px 24px;text-align:center}
+.reg-success-check{width:56px;height:56px;border-radius:50%;background:#22c55e;color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;font-weight:700}
+.reg-success-msg{margin:0;font-size:16px;color:var(--tx)}
+.reg-success-slug{margin:0;font-size:13px;color:var(--tx-d);font-family:'JetBrains Mono',monospace;background:var(--bg-hover);padding:3px 10px;border-radius:6px}
+.reg-success-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px}

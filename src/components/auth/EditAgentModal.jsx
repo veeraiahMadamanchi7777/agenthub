@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthProvider.jsx';
 import { useToast } from '../../context/ToastProvider.jsx';
-import { getCategories, updateAgent, deleteAgent } from '../../api/agentsApi.js';
+import { getCategories, updateAgent, deleteAgent, invalidateAgents } from '../../api/agentsApi.js';
 import { useImageValidation } from '../../hooks/useImageValidation.js';
 import { PrimaryBtn } from '../ui/PrimaryBtn.jsx';
 import { GhostBtn } from '../ui/GhostBtn.jsx';
@@ -30,6 +30,8 @@ export function EditAgentModal() {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [addingCategory, setAddingCategory] = useState(false);
+  const [newCategory, setNewCategory] = useState('');
 
   const [name, setName]               = useState('');
   const [author, setAuthor]           = useState('');
@@ -84,9 +86,27 @@ export function EditAgentModal() {
 
   if (!editAgent) return null;
 
-  const close = () => { setEditAgent(null); setConfirmDelete(false); };
+  const close = () => { setEditAgent(null); setConfirmDelete(false); setAddingCategory(false); setNewCategory(''); };
 
   const parseTags = (v) => v.split(',').map((s) => s.trim()).filter(Boolean);
+
+  const onCategorySelectChange = (e) => {
+    if (e.target.value === '__new__') {
+      setAddingCategory(true);
+      setCategory('');
+    } else {
+      setCategory(e.target.value);
+      setAddingCategory(false);
+    }
+  };
+
+  const commitNewCategory = () => {
+    const trimmed = newCategory.trim();
+    if (trimmed && !categories.includes(trimmed)) setCategories((c) => [...c, trimmed]);
+    if (trimmed) setCategory(trimmed);
+    setAddingCategory(false);
+    setNewCategory('');
+  };
 
   const save = async () => {
     if (!name.trim() || !desc.trim() || !category) {
@@ -101,9 +121,8 @@ export function EditAgentModal() {
         envVars, inputs, outputs,
       });
       show(`"${name}" updated`, 'success');
+      invalidateAgents();
       close();
-      // Force a fresh load of the agent page
-      nav(0);
     } catch (err) {
       show(err.message, 'error');
     } finally {
@@ -116,6 +135,7 @@ export function EditAgentModal() {
     try {
       await deleteAgent(editAgent.slug);
       show(`"${editAgent.name}" deleted`, 'success');
+      invalidateAgents();
       close();
       nav('/');
     } catch (err) {
@@ -156,10 +176,26 @@ export function EditAgentModal() {
                 <textarea className="input textarea" rows={3} value={desc} onChange={(e) => setDesc(e.target.value)} />
               </Field>
               <Field label="Category" hint="required">
-                <select className="input" value={category} onChange={(e) => setCategory(e.target.value)}>
-                  <option value="">Select a category…</option>
-                  {categories.map((c) => <option key={c} value={c}>{c}</option>)}
-                </select>
+                {addingCategory ? (
+                  <div className="reg-new-category-row">
+                    <input
+                      className="input"
+                      placeholder="New category name…"
+                      value={newCategory}
+                      onChange={(e) => setNewCategory(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && commitNewCategory()}
+                      autoFocus
+                    />
+                    <PrimaryBtn onClick={commitNewCategory} disabled={!newCategory.trim()}>Add</PrimaryBtn>
+                    <GhostBtn onClick={() => { setAddingCategory(false); setNewCategory(''); }}>Cancel</GhostBtn>
+                  </div>
+                ) : (
+                  <select className="input" value={category} onChange={onCategorySelectChange}>
+                    <option value="">Select a category…</option>
+                    {categories.map((c) => <option key={c} value={c}>{c}</option>)}
+                    <option value="__new__">+ Add new category…</option>
+                  </select>
+                )}
               </Field>
 
               <div className="edit-section-divider">Docker</div>
