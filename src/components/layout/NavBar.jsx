@@ -1,15 +1,29 @@
 /** Top nav — search centered between sidebar and theme toggle. */
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthProvider.jsx';
 import { useSearch } from '../../context/SearchProvider.jsx';
 import { ThemeToggle } from '../ui/ThemeToggle.jsx';
 import { NavMenuButton } from './NavMenuButton.jsx';
 
-function NavActions({ authed, setAuthOpen, setRegisterOpen }) {
+function UserAvatar({ user, signOut }) {
+  const nav = useNavigate();
+  return (
+    <div className="nav-user">
+      <button className="nav-avatar" style={{ background: user.avatar_color || '#6366f1' }} onClick={() => nav('/account')} title={user.username}>
+        {user.username[0].toUpperCase()}
+      </button>
+      <button className="nav-btn-ghost nav-btn-signin" onClick={signOut}>Sign out</button>
+    </div>
+  );
+}
+
+function NavActions({ authed, user, setAuthOpen, setRegisterOpen, signOut }) {
   return (
     <div className="navbar-actions">
       <ThemeToggle />
-      {!authed && (
+      {authed ? (
+        <UserAvatar user={user} signOut={signOut} />
+      ) : (
         <button type="button" className="nav-btn-ghost nav-btn-signin" onClick={() => setAuthOpen(true)}>Sign in</button>
       )}
       <button type="button" className="nav-btn-dark" onClick={() => setRegisterOpen(true)}>
@@ -21,7 +35,7 @@ function NavActions({ authed, setAuthOpen, setRegisterOpen }) {
 }
 
 export function NavBar() {
-  const { authed, setAuthOpen, setRegisterOpen } = useAuth();
+  const { authed, user, setAuthOpen, setRegisterOpen, signOut } = useAuth();
   const { pathname } = useLocation();
   const { q, setQ } = useSearch();
   const isHome = pathname === '/';
@@ -51,7 +65,7 @@ export function NavBar() {
             </div>
           </div>
           <div className={`navbar-extra${authed ? ' navbar-extra--authed' : ''}`}>
-            <NavActions authed={authed} setAuthOpen={setAuthOpen} setRegisterOpen={setRegisterOpen} />
+            <NavActions authed={authed} user={user} setAuthOpen={setAuthOpen} setRegisterOpen={setRegisterOpen} signOut={signOut} />
           </div>
         </nav>
       </header>
@@ -64,7 +78,7 @@ export function NavBar() {
         <NavMenuButton />
         <div className="navbar-spacer" aria-hidden="true" />
         <div className="navbar-right">
-          <NavActions authed={authed} setAuthOpen={setAuthOpen} setRegisterOpen={setRegisterOpen} />
+          <NavActions authed={authed} user={user} setAuthOpen={setAuthOpen} setRegisterOpen={setRegisterOpen} signOut={signOut} />
         </div>
       </nav>
     </header>

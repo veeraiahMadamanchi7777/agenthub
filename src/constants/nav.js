@@ -5,6 +5,7 @@ export const SIDEBAR_ITEMS = [
   { id: 'library', label: 'Library', path: '/library', auth: false, icon: 'library' },
   { id: 'discover', label: 'Discover', path: '/discover', auth: false, icon: 'discover' },
   { id: 'workstation', label: 'Workstation', path: '/workstation', auth: false, icon: 'workstation' },
+  { id: 'my-agents', label: 'My Agents', path: '/account', auth: true, authOnly: true, icon: 'my-agents' },
 ];
 
 /** Legacy paths → current routes (redirects). */

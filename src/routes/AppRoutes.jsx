@@ -13,6 +13,7 @@ import { StudioPage } from '../pages/StudioPage.jsx';
 import { AskPage } from '../pages/AskPage.jsx';
 import { SetupPage } from '../pages/SetupPage.jsx';
 import { SchedulePage } from '../pages/SchedulePage.jsx';
+import { AccountPage } from '../pages/AccountPage.jsx';
 import { AuthModal } from '../components/auth/AuthModal.jsx';
 import { RegisterModal } from '../components/auth/RegisterModal.jsx';
 import { EditAgentModal } from '../components/auth/EditAgentModal.jsx';
@@ -72,6 +73,7 @@ export function AppRoutes() {
           <Route path="/setup" element={<Navigate to="/workstation" replace />} />
 
           <Route path="/studio" element={<StudioPage />} />
+          <Route path="/account" element={<AccountPage />} />
         </Routes>
       </AppShell>
       <AuthModal /><RegisterModal /><EditAgentModal /><BootModal />

@@ -1,6 +1,11 @@
 /** Agent registry mock API. */
 import { fetchMock } from './mockClient.js';
 
+function authHeaders() {
+  const token = localStorage.getItem('auth_token');
+  return { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) };
+}
+
 export async function getAgents() {
   return fetchMock('agents.json');
 }
@@ -18,7 +23,7 @@ export async function searchAgents(q) {
 export async function updateAgent(slug, data) {
   const res = await fetch(`/api/agents/${slug}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    headers: authHeaders(),
     body: JSON.stringify(data),
   });
   const json = await res.json().catch(() => ({}));
@@ -27,7 +32,7 @@ export async function updateAgent(slug, data) {
 }
 
 export async function deleteAgent(slug) {
-  const res = await fetch(`/api/agents/${slug}`, { method: 'DELETE' });
+  const res = await fetch(`/api/agents/${slug}`, { method: 'DELETE', headers: authHeaders() });
   const json = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(json.error || 'Delete failed');
   return json;
@@ -36,7 +41,7 @@ export async function deleteAgent(slug) {
 export async function registerAgent(data) {
   const res = await fetch('/api/agents/register', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: authHeaders(),
     body: JSON.stringify(data),
   });
   const json = await res.json().catch(() => ({}));

@@ -317,3 +317,40 @@
 .reg-success-msg{margin:0;font-size:16px;color:var(--tx)}
 .reg-success-slug{margin:0;font-size:13px;color:var(--tx-d);font-family:'JetBrains Mono',monospace;background:var(--bg-hover);padding:3px 10px;border-radius:6px}
 .reg-success-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+
+/* ── Auth modal ── */
+.auth-modal{max-width:400px}
+.auth-tabs{display:flex;border-bottom:1px solid var(--bd);padding:0 20px}
+.auth-tab{background:none;border:none;padding:10px 16px;font-size:14px;font-weight:500;color:var(--tx-d);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.auth-tab--active{color:var(--tx);border-bottom-color:var(--tx)}
+.auth-github-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg-soft);color:var(--tx);font-size:14px;font-weight:500;text-decoration:none;cursor:pointer;transition:background .15s}
+.auth-github-btn:hover{background:var(--bg-hover)}
+.auth-divider{display:flex;align-items:center;gap:10px;color:var(--tx-d);font-size:12px;margin:4px 0}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--bd)}
+.auth-switch{font-size:13px;color:var(--tx-d);text-align:center;margin-top:4px}
+.auth-switch-link{background:none;border:none;color:var(--tx);font-size:13px;font-weight:500;cursor:pointer;padding:0;text-decoration:underline}
+
+/* ── Nav user avatar ── */
+.nav-user{display:flex;align-items:center;gap:8px}
+.nav-avatar{width:32px;height:32px;border-radius:50%;border:none;color:#fff;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .15s}
+.nav-avatar:hover{opacity:.85}
+
+/* ── Account page ── */
+.account-page{max-width:680px}
+.account-section{background:var(--bg-soft);border:1px solid var(--bd);border-radius:14px;padding:24px;margin-bottom:20px}
+.account-section-title{margin:0 0 18px;font-size:15px;font-weight:600;color:var(--tx)}
+.account-profile-row{display:flex;gap:20px;align-items:flex-start}
+.account-avatar{width:64px;height:64px;border-radius:50%;color:#fff;font-size:26px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.account-profile-fields{flex:1;display:flex;flex-direction:column}
+.account-meta{display:flex;gap:16px;margin-top:14px;flex-wrap:wrap}
+.account-agents-list{display:flex;flex-direction:column;gap:10px}
+.account-agent-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--bg)}
+.account-agent-info{flex:1;display:flex;flex-direction:column;gap:2px}
+.account-agent-name{font-size:14px;font-weight:500;color:var(--tx)}
+.account-agent-slug{font-size:12px;font-family:'JetBrains Mono',monospace}
+.account-agent-actions{display:flex;gap:6px}
+.account-pw-form{display:flex;flex-direction:column;gap:10px;max-width:360px}
+.account-danger{border-color:#ef444440}
+.account-danger-title{color:#ef4444}
+.account-delete-confirm{display:flex;flex-direction:column;gap:14px}
+.account-delete-warn{margin:0;font-size:14px;color:var(--tx-d)}

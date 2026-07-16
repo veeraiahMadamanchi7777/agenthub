@@ -37,6 +37,13 @@ export function SidebarIcon({ name }) {
       </svg>
     );
   }
+  if (name === 'my-agents') {
+    return (
+      <svg {...props}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a9 9 0 1115 0" />
+      </svg>
+    );
+  }
   return (
     <svg {...props}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M9.09 9a3 3 0 015.82 1c0 2-3 3-3 3m.08 4h.01M12 3a9 9 0 110 18 9 9 0 010-18z" />

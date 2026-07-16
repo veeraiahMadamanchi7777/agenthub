@@ -24,7 +24,7 @@ export function Sidebar() {
       </div>
 
       <nav className="sidebar-nav">
-        {SIDEBAR_ITEMS.map((item) => (
+        {SIDEBAR_ITEMS.filter((item) => !item.authOnly || authed).map((item) => (
           <SidebarLink
             key={item.id}
             item={item}
