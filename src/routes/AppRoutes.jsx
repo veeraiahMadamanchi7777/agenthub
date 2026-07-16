@@ -15,6 +15,7 @@ import { SetupPage } from '../pages/SetupPage.jsx';
 import { SchedulePage } from '../pages/SchedulePage.jsx';
 import { AuthModal } from '../components/auth/AuthModal.jsx';
 import { RegisterModal } from '../components/auth/RegisterModal.jsx';
+import { EditAgentModal } from '../components/auth/EditAgentModal.jsx';
 import { BootModal } from '../components/boot/BootModal.jsx';
 
 function LegacyLibraryRedirect() {
@@ -73,7 +74,7 @@ export function AppRoutes() {
           <Route path="/studio" element={<StudioPage />} />
         </Routes>
       </AppShell>
-      <AuthModal /><RegisterModal /><BootModal />
+      <AuthModal /><RegisterModal /><EditAgentModal /><BootModal />
     </>
   );
 }

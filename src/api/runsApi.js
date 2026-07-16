@@ -1,10 +1,20 @@
 /** Client for the local run backend (server/index.js). Real container runs — not mocked. */
 
-export async function startRun(slug) {
+export async function startTestRun({ dockerImage, dockerPort, embed }) {
+  const res = await fetch('/api/runs/test', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ dockerImage, dockerPort, embed }),
+  });
+  if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Failed to start test run');
+  return res.json();
+}
+
+export async function startRun(slug, { userEnv = {} } = {}) {
   const res = await fetch('/api/runs', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ slug }),
+    body: JSON.stringify({ slug, userEnv }),
   });
   if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Failed to start run');
   return res.json();

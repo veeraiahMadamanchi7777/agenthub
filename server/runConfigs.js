@@ -57,3 +57,14 @@ export const RUN_CONFIGS = {
 export function getRunConfig(slug) {
   return RUN_CONFIGS[slug] ?? null;
 }
+
+export function buildConfigFromAgent(agent) {
+  return {
+    image: agent.dockerImage,
+    cmd: undefined,
+    containerPort: agent.containerPort || null,
+    hostPort: agent.hostPort || null,
+    embed: agent.kind === 'embedded',
+    env: [],
+  };
+}

@@ -7,11 +7,12 @@ export function AuthProvider({ children }) {
   const [authed, setAuthed] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
+  const [editAgent, setEditAgent] = useState(null); // agent object to edit, or null
   const signIn = () => { setAuthed(true); setAuthOpen(false); };
   const signOut = () => setAuthed(false);
   const requireAuth = (fn) => { if (!authed) setAuthOpen(true); else fn(); };
   return (
-    <AuthContext.Provider value={{ authed, authOpen, setAuthOpen, registerOpen, setRegisterOpen, signIn, signOut, requireAuth }}>
+    <AuthContext.Provider value={{ authed, authOpen, setAuthOpen, registerOpen, setRegisterOpen, editAgent, setEditAgent, signIn, signOut, requireAuth }}>
       {children}
     </AuthContext.Provider>
   );
