@@ -34,11 +34,11 @@ export async function apiMe() {
   return handle(await fetch(`${BASE}/me`, { headers: authHeaders() }));
 }
 
-export async function apiUpdateProfile(data) {
+export async function apiUpdateProfile({ username, name, bio, avatar_color, avatar_data } = {}) {
   return handle(await fetch(`${BASE}/me`, {
     method: 'PUT',
     headers: authHeaders(),
-    body: JSON.stringify(data),
+    body: JSON.stringify({ username, name, bio, avatar_color, avatar_data }),
   }));
 }
 

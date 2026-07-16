@@ -19,7 +19,7 @@ function safeUser(user) {
 
 // POST /api/auth/register
 router.post('/register', async (req, res) => {
-  const { email, username, password } = req.body || {};
+  const { email, username, name, password } = req.body || {};
   if (!email?.trim())    return res.status(400).json({ error: 'Email is required' });
   if (!username?.trim()) return res.status(400).json({ error: 'Username is required' });
   if (!password || password.length < 8) return res.status(400).json({ error: 'Password must be at least 8 characters' });
@@ -30,8 +30,8 @@ router.post('/register', async (req, res) => {
   const hash = await bcrypt.hash(password, 12);
   try {
     const result = db.prepare(
-      'INSERT INTO users (email, username, password_hash) VALUES (?, ?, ?)'
-    ).run(email.trim().toLowerCase(), slug, hash);
+      'INSERT INTO users (email, username, name, password_hash) VALUES (?, ?, ?, ?)'
+    ).run(email.trim().toLowerCase(), slug, name?.trim() || '', hash);
 
     const user = db.prepare('SELECT * FROM users WHERE id = ?').get(result.lastInsertRowid);
     res.status(201).json({ token: signToken(user), user: safeUser(user) });
@@ -65,14 +65,16 @@ router.get('/me', requireAuth, (req, res) => {
 
 // PUT /api/auth/me — update profile
 router.put('/me', requireAuth, (req, res) => {
-  const { username, bio, avatar_color } = req.body || {};
+  const { username, name, bio, avatar_color, avatar_data } = req.body || {};
   const updates = {};
   if (username?.trim()) {
     const slug = username.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
     if (slug) updates.username = slug;
   }
+  if (name !== undefined)         updates.name = name;
   if (bio !== undefined)          updates.bio = bio;
   if (avatar_color?.trim())       updates.avatar_color = avatar_color.trim();
+  if (avatar_data !== undefined)  updates.avatar_data = avatar_data;
 
   if (Object.keys(updates).length === 0) return res.status(400).json({ error: 'Nothing to update' });
 
