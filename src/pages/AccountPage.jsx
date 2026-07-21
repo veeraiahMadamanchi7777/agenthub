@@ -1,9 +1,9 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthProvider.jsx';
 import { useToast } from '../context/ToastProvider.jsx';
 import { usePageTitle } from '../hooks/usePageTitle.js';
-import { apiUpdateProfile, apiChangePassword, apiDeleteAccount } from '../api/authApi.js';
+import { apiUpdateProfile, apiChangePassword, apiDeleteAccount, apiGetSessions, apiRevokeSession, apiResendVerification } from '../api/authApi.js';
 import { PrimaryBtn } from '../components/ui/PrimaryBtn.jsx';
 import { GhostBtn } from '../components/ui/GhostBtn.jsx';
 
@@ -116,6 +116,12 @@ function AvatarPicker({ avatarData, setAvatarData, avatarColor, setAvatarColor }
   );
 }
 
+function formatDate(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  return d.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
+}
+
 export function AccountPage() {
   const { user, signOut, updateUser } = useAuth();
   const { show } = useToast();
@@ -136,6 +142,15 @@ export function AccountPage() {
 
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleting, setDeleting]       = useState(false);
+
+  const [sessions, setSessions]       = useState([]);
+  const [revokingId, setRevokingId]   = useState(null);
+  const [resending, setResending]     = useState(false);
+
+  useEffect(() => {
+    if (!user) return;
+    apiGetSessions().then(({ sessions }) => setSessions(sessions)).catch(() => {});
+  }, [user]);
 
   if (!user) { nav('/'); return null; }
 
@@ -176,6 +191,31 @@ export function AccountPage() {
       show(err.message, 'error');
       setDeleting(false);
       setConfirmDelete(false);
+    }
+  };
+
+  const revokeSession = async (id) => {
+    setRevokingId(id);
+    try {
+      await apiRevokeSession(id);
+      setSessions((s) => s.filter((sess) => sess.id !== id));
+      show('Session revoked', 'success');
+    } catch (err) {
+      show(err.message, 'error');
+    } finally {
+      setRevokingId(null);
+    }
+  };
+
+  const resendVerification = async () => {
+    setResending(true);
+    try {
+      await apiResendVerification();
+      show('Verification email sent — check your inbox.', 'success');
+    } catch (err) {
+      show(err.message, 'error');
+    } finally {
+      setResending(false);
     }
   };
 
@@ -262,6 +302,47 @@ export function AccountPage() {
           )}
         </section>
       ) : null}
+
+      {/* ── Email verification ── */}
+      {!user.email_verified && (
+        <section className="account-section">
+          <h2 className="account-section-title">Email verification</h2>
+          <p className="account-verify-msg">
+            Your email <strong>{user.email}</strong> has not been verified yet.
+            Verify it to secure your account.
+          </p>
+          <GhostBtn onClick={resendVerification} disabled={resending}>
+            {resending ? 'Sending…' : 'Resend verification email'}
+          </GhostBtn>
+        </section>
+      )}
+
+      {/* ── Active sessions ── */}
+      {sessions.length > 0 && (
+        <section className="account-section">
+          <h2 className="account-section-title">Active sessions</h2>
+          <ul className="sessions-list">
+            {sessions.map((s) => (
+              <li key={s.id} className="session-item">
+                <div className="session-info">
+                  <span className="session-device">{s.device || 'Unknown device'}</span>
+                  <span className="session-meta">
+                    {s.ip && <span>{s.ip} · </span>}
+                    Last active {formatDate(s.last_used)}
+                  </span>
+                </div>
+                <button
+                  className="session-revoke-btn"
+                  onClick={() => revokeSession(s.id)}
+                  disabled={revokingId === s.id}
+                >
+                  {revokingId === s.id ? 'Revoking…' : 'Revoke'}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {/* ── Danger zone ── */}
       <section className="account-section account-danger">

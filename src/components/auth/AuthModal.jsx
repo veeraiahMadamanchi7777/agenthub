@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthProvider.jsx';
 import { useToast } from '../../context/ToastProvider.jsx';
-import { apiLogin, apiRegister, githubLoginUrl } from '../../api/authApi.js';
+import { apiLogin, apiRegister, apiForgotPassword, githubLoginUrl } from '../../api/authApi.js';
 import { PrimaryBtn } from '../ui/PrimaryBtn.jsx';
 
 function GitHubIcon() {
@@ -88,14 +88,19 @@ export function AuthModal() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm]   = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading]   = useState(false);
   const [pwFocused, setPwFocused] = useState(false);
+  const [forgotMode, setForgotMode] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState('');
+  const [forgotSent, setForgotSent] = useState(false);
 
   if (!authOpen) return null;
 
   const reset = () => {
     setName(''); setEmail(''); setEmailError(''); setUsername('');
-    setPassword(''); setConfirm(''); setPwFocused(false);
+    setPassword(''); setConfirm(''); setRememberMe(false); setPwFocused(false);
+    setForgotMode(false); setForgotEmail(''); setForgotSent(false);
   };
 
   const close = () => { setAuthOpen(false); reset(); setTab('signin'); };
@@ -108,6 +113,19 @@ export function AuthModal() {
     return name && email && !emailError && username && password && confirm === password && strength && strength.level >= 2;
   };
 
+  const sendForgot = async () => {
+    if (!forgotEmail.trim()) return;
+    setLoading(true);
+    try {
+      await apiForgotPassword(forgotEmail.trim());
+      setForgotSent(true);
+    } catch {
+      setForgotSent(true); // always succeed to avoid email enumeration
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const submit = async () => {
     if (!canSubmit()) return;
     if (tab === 'signup') {
@@ -117,10 +135,10 @@ export function AuthModal() {
     }
     setLoading(true);
     try {
-      const { token, user } = tab === 'signin'
-        ? await apiLogin({ email, password })
+      const { user } = tab === 'signin'
+        ? await apiLogin({ email, password, rememberMe })
         : await apiRegister({ email, username, name, password });
-      signIn(token, user);
+      signIn(null, user);
       show(`Welcome${tab === 'signup' ? ', ' + (user.name || user.username) : ' back, ' + (user.name || user.username)}!`, 'success');
       close();
     } catch (err) {
@@ -140,15 +158,48 @@ export function AuthModal() {
       <div className="modal auth-modal">
         <div className="modal-header">
           <h2 className="modal-title">
-            {tab === 'signin' ? 'Sign in to AgentHub' : 'Create your account'}
+            {forgotMode ? 'Reset your password' : tab === 'signin' ? 'Sign in to AgentHub' : 'Create your account'}
           </h2>
           <button className="modal-close" onClick={close} aria-label="Close">✕</button>
         </div>
 
-        <div className="auth-tabs">
-          <button className={`auth-tab${tab === 'signin' ? ' auth-tab--active' : ''}`} onClick={() => switchTab('signin')}>Sign in</button>
-          <button className={`auth-tab${tab === 'signup' ? ' auth-tab--active' : ''}`} onClick={() => switchTab('signup')}>Sign up</button>
-        </div>
+        {!forgotMode && (
+          <div className="auth-tabs">
+            <button className={`auth-tab${tab === 'signin' ? ' auth-tab--active' : ''}`} onClick={() => switchTab('signin')}>Sign in</button>
+            <button className={`auth-tab${tab === 'signup' ? ' auth-tab--active' : ''}`} onClick={() => switchTab('signup')}>Sign up</button>
+          </div>
+        )}
+
+        {forgotMode ? (
+          <div className="modal-body">
+            {forgotSent ? (
+              <div className="auth-forgot-sent">
+                <p>If an account exists for <strong>{forgotEmail}</strong>, a reset link has been sent. Check your inbox.</p>
+                <button className="auth-switch-link" onClick={() => { setForgotMode(false); setForgotSent(false); }}>Back to sign in</button>
+              </div>
+            ) : (
+              <>
+                <p className="auth-forgot-desc">Enter your email and we'll send you a link to reset your password.</p>
+                <input
+                  className="input"
+                  type="email"
+                  placeholder="Email address"
+                  value={forgotEmail}
+                  onChange={(e) => setForgotEmail(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && sendForgot()}
+                  autoComplete="email"
+                  autoFocus
+                />
+                <PrimaryBtn onClick={sendForgot} disabled={loading || !forgotEmail.trim()}>
+                  {loading ? 'Sending…' : 'Send reset link'}
+                </PrimaryBtn>
+                <div className="auth-switch">
+                  <button className="auth-switch-link" onClick={() => setForgotMode(false)}>Back to sign in</button>
+                </div>
+              </>
+            )}
+          </div>
+        ) : (
 
         <div className="modal-body">
           <a className="auth-github-btn" href={githubLoginUrl()}>
@@ -233,6 +284,17 @@ export function AuthModal() {
             </div>
           )}
 
+          {/* Remember me + forgot password — sign-in only */}
+          {tab === 'signin' && (
+            <div className="auth-extras">
+              <label className="auth-remember">
+                <input type="checkbox" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
+                Remember me
+              </label>
+              <button className="auth-switch-link" onClick={() => setForgotMode(true)}>Forgot password?</button>
+            </div>
+          )}
+
           <PrimaryBtn onClick={submit} disabled={loading || !canSubmit()}>
             {loading ? 'Please wait…' : tab === 'signin' ? 'Sign in' : 'Create account'}
           </PrimaryBtn>
@@ -245,6 +307,7 @@ export function AuthModal() {
             )}
           </div>
         </div>
+        )}
       </div>
     </div>
   );

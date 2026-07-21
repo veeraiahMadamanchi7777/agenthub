@@ -433,3 +433,42 @@
 .pw-rule{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--tx-d);transition:color .2s}
 .pw-rule--ok{color:#22c55e}
 .pw-rule-icon{font-size:10px;width:12px;text-align:center;flex-shrink:0}
+
+/* ── Forgot password / reset ── */
+.auth-extras{display:flex;align-items:center;justify-content:space-between;margin-top:2px}
+.auth-remember{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--tx-d);cursor:pointer;user-select:none}
+.auth-remember input[type=checkbox]{accent-color:var(--accent);cursor:pointer}
+.auth-forgot-desc{margin:0 0 12px;font-size:13px;color:var(--tx-d)}
+.auth-forgot-sent{display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center;padding:8px 0}
+.auth-forgot-sent p{margin:0;font-size:14px;color:var(--tx-d);line-height:1.5}
+
+/* ── Auth status pages (verify-email, reset-password) ── */
+.auth-page-centered{display:flex;align-items:center;justify-content:center;min-height:70vh}
+.auth-status-card{display:flex;flex-direction:column;align-items:center;gap:12px;padding:40px 32px;border:1px solid var(--bd);border-radius:16px;background:var(--bg-soft);max-width:420px;text-align:center}
+.auth-status-card h1{margin:0;font-size:22px}
+.auth-status-card p{margin:0;font-size:14px;color:var(--tx-d)}
+.auth-status-card--success .auth-status-icon{color:#22c55e}
+.auth-status-card--error .auth-status-icon{color:#ef4444}
+.auth-status-icon{font-size:40px;font-weight:700}
+.auth-reset-card{width:100%;max-width:400px;display:flex;flex-direction:column;gap:14px}
+.auth-reset-card h1{margin:0;font-size:22px}
+.btn-primary-link{display:inline-block;padding:10px 20px;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;margin-top:4px}
+
+/* ── Email verification banner ── */
+.email-banner{position:fixed;bottom:0;left:0;right:0;z-index:9000;display:flex;align-items:center;gap:10px;padding:12px 20px;background:#92400e;color:#fef3c7;font-size:13px;font-weight:500}
+.email-banner-btn{margin-left:auto;padding:5px 14px;border:1px solid #fef3c7;border-radius:6px;background:transparent;color:#fef3c7;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+.email-banner-btn:hover{background:rgba(255,255,255,.15)}
+.email-banner-dismiss{background:none;border:none;color:#fef3c7;cursor:pointer;padding:0 4px;opacity:.7;font-size:14px}
+.email-banner-dismiss:hover{opacity:1}
+
+/* ── Sessions list ── */
+.sessions-list{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.session-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border:1px solid var(--bd);border-radius:8px;background:var(--bg-soft)}
+.session-info{display:flex;flex-direction:column;gap:2px;min-width:0}
+.session-device{font-size:13px;font-weight:500;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:400px}
+.session-meta{font-size:11px;color:var(--tx-d)}
+.session-revoke-btn{padding:4px 12px;border:1px solid var(--bd);border-radius:6px;background:transparent;color:var(--tx-d);font-size:12px;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.session-revoke-btn:hover{border-color:#ef4444;color:#ef4444}
+
+/* ── Account verify message ── */
+.account-verify-msg{margin:0 0 12px;font-size:14px;color:var(--tx-d);line-height:1.5}

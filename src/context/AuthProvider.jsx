@@ -1,56 +1,97 @@
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { apiMe } from '../api/authApi.js';
+import { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
+import { apiMe, apiRefresh, apiLogout } from '../api/authApi.js';
 
 const AuthContext = createContext(null);
 
+const INACTIVITY_MS = 30 * 60 * 1000; // 30 minutes
+
 export function AuthProvider({ children }) {
-  const [user, setUser]           = useState(null);   // null = not signed in
-  const [authReady, setAuthReady] = useState(false);  // true once token check is done
+  const [user, setUser]           = useState(null);
+  const [authReady, setAuthReady] = useState(false);
   const [authOpen, setAuthOpen]   = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
   const [editAgent, setEditAgent] = useState(null);
+  const inactivityTimer = useRef(null);
 
-  // On mount: restore session from localStorage token
+  // ── Silent token refresh with 401 retry ──────────────────
+  async function fetchWithRefresh(fetchFn) {
+    try {
+      return await fetchFn();
+    } catch (err) {
+      if (err.message === 'Authentication required' || err.message === 'Invalid or expired token') {
+        try {
+          await apiRefresh();
+          return await fetchFn();
+        } catch {
+          return null;
+        }
+      }
+      throw err;
+    }
+  }
+
+  // ── Inactivity auto-logout ────────────────────────────────
+  const resetInactivity = useCallback(() => {
+    clearTimeout(inactivityTimer.current);
+    inactivityTimer.current = setTimeout(() => {
+      doSignOut();
+    }, INACTIVITY_MS);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
-    const token = localStorage.getItem('auth_token');
-    if (!token) { setAuthReady(true); return; }
+    if (!user) return;
+    const events = ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'];
+    events.forEach((e) => window.addEventListener(e, resetInactivity, { passive: true }));
+    resetInactivity();
+    return () => {
+      events.forEach((e) => window.removeEventListener(e, resetInactivity));
+      clearTimeout(inactivityTimer.current);
+    };
+  }, [user, resetInactivity]);
+
+  // ── Session restore on mount ──────────────────────────────
+  useEffect(() => {
     apiMe()
       .then(({ user }) => setUser(user))
-      .catch(() => localStorage.removeItem('auth_token'))
+      .catch(async () => {
+        // Try silent refresh
+        try {
+          const { user } = await apiRefresh();
+          setUser(user);
+        } catch {
+          // Not signed in
+        }
+      })
       .finally(() => setAuthReady(true));
   }, []);
 
-  // Handle GitHub OAuth callback — token + user come back as query params
+  // ── GitHub OAuth callback (cookie-based) ──────────────────
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const ghToken = params.get('token');
-    const ghUser  = params.get('user');
     const authStatus = params.get('auth');
-    if (authStatus === 'github' && ghToken && ghUser) {
-      try {
-        localStorage.setItem('auth_token', ghToken);
-        setUser(JSON.parse(decodeURIComponent(ghUser)));
-        setAuthOpen(false);
-      } catch { /* malformed */ }
-      // Clean up URL
+    if (authStatus === 'github') {
+      apiMe()
+        .then(({ user }) => { setUser(user); setAuthOpen(false); })
+        .catch(() => {});
       const clean = new URL(window.location.href);
       clean.searchParams.delete('auth');
-      clean.searchParams.delete('token');
-      clean.searchParams.delete('user');
       window.history.replaceState({}, '', clean.toString());
     }
   }, []);
 
-  const signIn = useCallback((token, userData) => {
-    localStorage.setItem('auth_token', token);
+  const doSignOut = useCallback(async () => {
+    clearTimeout(inactivityTimer.current);
+    await apiLogout().catch(() => {});
+    setUser(null);
+  }, []);
+
+  const signIn = useCallback((_token, userData) => {
+    // token is now in httpOnly cookie — we just store the user object
     setUser(userData);
     setAuthOpen(false);
   }, []);
 
-  const signOut = useCallback(() => {
-    localStorage.removeItem('auth_token');
-    setUser(null);
-  }, []);
+  const signOut = useCallback(() => doSignOut(), [doSignOut]);
 
   const updateUser = useCallback((userData) => setUser(userData), []);
 
@@ -68,6 +109,7 @@ export function AuthProvider({ children }) {
       registerOpen, setRegisterOpen,
       editAgent, setEditAgent,
       signIn, signOut, updateUser, requireAuth,
+      fetchWithRefresh,
     }}>
       {children}
     </AuthContext.Provider>
