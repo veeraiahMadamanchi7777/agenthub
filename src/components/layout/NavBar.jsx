@@ -84,12 +84,6 @@ function NavActions({ authed, user, setAuthOpen, setRegisterOpen, signOut }) {
       ) : (
         <button type="button" className="nav-btn-ghost nav-btn-signin" onClick={() => setAuthOpen(true)}>Sign in</button>
       )}
-      {!authed && (
-        <button type="button" className="nav-btn-dark" onClick={() => setRegisterOpen(true)}>
-          <span className="nav-btn-register-full">Register agent</span>
-          <span className="nav-btn-register-short">Register</span>
-        </button>
-      )}
     </div>
   );
 }
