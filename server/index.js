@@ -15,14 +15,18 @@
  */
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import http from 'node:http';
 import { randomUUID } from 'node:crypto';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { WebSocketServer } from 'ws';
+import passport from 'passport';
 import { getRunConfig, buildConfigFromAgent } from './runConfigs.js';
 import { runContainer, stopContainer, explainDockerError } from './dockerRunner.js';
+import { router as authRouter, requireAuth } from './auth.js';
+import { router as githubRouter } from './authGithub.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -33,8 +37,13 @@ const PORT = process.env.RUN_SERVER_PORT || 4500;
 const MAX_LOG_LINES = 4000;
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173', credentials: true }));
+app.use(cookieParser());
 app.use(express.json());
+app.use(passport.initialize());
+
+app.use('/api/auth', authRouter);
+app.use('/api/auth/github', githubRouter);
 
 /** sessionId -> { sessionId, slug, config, container, status, logs, _partial, sockets, embedUrl } */
 const sessions = new Map();
@@ -109,7 +118,7 @@ app.get('/api/agents/validate-image', async (req, res) => {
   }
 });
 
-app.post('/api/agents/register', async (req, res) => {
+app.post('/api/agents/register', requireAuth, async (req, res) => {
   const { name, author, desc, category, caps, models, color, dockerImage, dockerPort, embed, readme, envVars, inputs, outputs } = req.body || {};
 
   if (!name?.trim())        return res.status(400).json({ error: 'name is required' });
@@ -135,7 +144,8 @@ app.post('/api/agents/register', async (req, res) => {
     id: Math.max(0, ...agents.map((a) => a.id)) + 1,
     slug,
     name: name.trim(),
-    author: author?.trim() || 'unknown',
+    author: author?.trim() || req.user.username,
+    authorId: req.user.id,
     desc: desc.trim(),
     pulls: 0,
     updatedAt: new Date().toISOString(),
@@ -232,13 +242,16 @@ app.post('/api/runs', async (req, res) => {
   }
 });
 
-app.put('/api/agents/:slug', async (req, res) => {
+app.put('/api/agents/:slug', requireAuth, async (req, res) => {
   const { slug } = req.params;
   const { name, author, desc, category, caps, models, color, dockerImage, dockerPort, embed, readme, envVars, inputs, outputs } = req.body || {};
 
   const agents = JSON.parse(await readFile(AGENTS_PATH, 'utf8'));
   const idx = agents.findIndex((a) => a.slug === slug);
   if (idx === -1) return res.status(404).json({ error: `Agent "${slug}" not found` });
+  if (agents[idx].authorId && agents[idx].authorId !== req.user.id) {
+    return res.status(403).json({ error: 'You do not have permission to edit this agent' });
+  }
 
   const parseTags = (v) =>
     Array.isArray(v) ? v : (v || '').split(',').map((s) => s.trim()).filter(Boolean);
@@ -288,11 +301,14 @@ app.put('/api/agents/:slug', async (req, res) => {
   res.json({ agent: updated });
 });
 
-app.delete('/api/agents/:slug', async (req, res) => {
+app.delete('/api/agents/:slug', requireAuth, async (req, res) => {
   const { slug } = req.params;
   const agents = JSON.parse(await readFile(AGENTS_PATH, 'utf8'));
   const idx = agents.findIndex((a) => a.slug === slug);
   if (idx === -1) return res.status(404).json({ error: `Agent "${slug}" not found` });
+  if (agents[idx].authorId && agents[idx].authorId !== req.user.id) {
+    return res.status(403).json({ error: 'You do not have permission to delete this agent' });
+  }
 
   agents.splice(idx, 1);
   await writeFile(AGENTS_PATH, JSON.stringify(agents, null, 2));

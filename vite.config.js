@@ -10,13 +10,13 @@ export default defineConfig({
     port: 5173,
     open: true,
     proxy: {
-      '/api': { target: RUN_SERVER, changeOrigin: true },
+      '/api': { target: RUN_SERVER, changeOrigin: true, cookieDomainRewrite: 'localhost' },
       '/ws': { target: RUN_SERVER, ws: true },
     },
   },
   preview: {
     proxy: {
-      '/api': { target: RUN_SERVER, changeOrigin: true },
+      '/api': { target: RUN_SERVER, changeOrigin: true, cookieDomainRewrite: 'localhost' },
       '/ws': { target: RUN_SERVER, ws: true },
     },
   },

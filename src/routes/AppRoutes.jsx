@@ -13,10 +13,15 @@ import { StudioPage } from '../pages/StudioPage.jsx';
 import { AskPage } from '../pages/AskPage.jsx';
 import { SetupPage } from '../pages/SetupPage.jsx';
 import { SchedulePage } from '../pages/SchedulePage.jsx';
+import { AccountPage } from '../pages/AccountPage.jsx';
+import { MyAgentsPage } from '../pages/MyAgentsPage.jsx';
+import { VerifyEmailPage } from '../pages/VerifyEmailPage.jsx';
+import { ResetPasswordPage } from '../pages/ResetPasswordPage.jsx';
 import { AuthModal } from '../components/auth/AuthModal.jsx';
 import { RegisterModal } from '../components/auth/RegisterModal.jsx';
 import { EditAgentModal } from '../components/auth/EditAgentModal.jsx';
 import { BootModal } from '../components/boot/BootModal.jsx';
+import { EmailBanner } from '../components/ui/EmailBanner.jsx';
 
 function LegacyLibraryRedirect() {
   const { slug } = useParams();
@@ -72,8 +77,13 @@ export function AppRoutes() {
           <Route path="/setup" element={<Navigate to="/workstation" replace />} />
 
           <Route path="/studio" element={<StudioPage />} />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/my-agents" element={<MyAgentsPage />} />
+          <Route path="/verify-email" element={<VerifyEmailPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
         </Routes>
       </AppShell>
+      <EmailBanner />
       <AuthModal /><RegisterModal /><EditAgentModal /><BootModal />
     </>
   );

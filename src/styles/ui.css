@@ -317,3 +317,158 @@
 .reg-success-msg{margin:0;font-size:16px;color:var(--tx)}
 .reg-success-slug{margin:0;font-size:13px;color:var(--tx-d);font-family:'JetBrains Mono',monospace;background:var(--bg-hover);padding:3px 10px;border-radius:6px}
 .reg-success-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+
+/* ── Auth modal ── */
+.auth-modal{max-width:400px}
+.auth-tabs{display:flex;border-bottom:1px solid var(--bd);padding:0 20px}
+.auth-tab{background:none;border:none;padding:10px 16px;font-size:14px;font-weight:500;color:var(--tx-d);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.auth-tab--active{color:var(--tx);border-bottom-color:var(--tx)}
+.auth-github-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg-soft);color:var(--tx);font-size:14px;font-weight:500;text-decoration:none;cursor:pointer;transition:background .15s}
+.auth-github-btn:hover{background:var(--bg-hover)}
+.auth-divider{display:flex;align-items:center;gap:10px;color:var(--tx-d);font-size:12px;margin:4px 0}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--bd)}
+.auth-switch{font-size:13px;color:var(--tx-d);text-align:center;margin-top:4px}
+.auth-switch-link{background:none;border:none;color:var(--tx);font-size:13px;font-weight:500;cursor:pointer;padding:0;text-decoration:underline}
+
+/* ── Nav user avatar ── */
+.nav-user{display:flex;align-items:center;gap:8px}
+.nav-avatar{width:32px;height:32px;border-radius:50%;border:none;color:#fff;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .15s}
+.nav-avatar:hover{opacity:.85}
+
+/* ── Account page ── */
+.account-page{max-width:680px}
+.account-section{background:var(--bg-soft);border:1px solid var(--bd);border-radius:14px;padding:24px;margin-bottom:20px}
+.account-section-title{margin:0 0 18px;font-size:15px;font-weight:600;color:var(--tx)}
+.account-profile-row{display:flex;gap:20px;align-items:flex-start}
+.account-avatar{width:64px;height:64px;border-radius:50%;color:#fff;font-size:26px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.account-profile-fields{flex:1;display:flex;flex-direction:column}
+.account-meta{display:flex;gap:16px;margin-top:14px;flex-wrap:wrap}
+.account-agents-list{display:flex;flex-direction:column;gap:10px}
+.account-agent-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--bg)}
+.account-agent-info{flex:1;display:flex;flex-direction:column;gap:2px}
+.account-agent-name{font-size:14px;font-weight:500;color:var(--tx)}
+.account-agent-slug{font-size:12px;font-family:'JetBrains Mono',monospace}
+.account-agent-actions{display:flex;gap:6px}
+.account-pw-form{display:flex;flex-direction:column;gap:10px;max-width:360px}
+.account-danger{border-color:#ef444440}
+.account-danger-title{color:#ef4444}
+.account-delete-confirm{display:flex;flex-direction:column;gap:14px}
+.account-delete-warn{margin:0;font-size:14px;color:var(--tx-d)}
+
+/* ── Nav user dropdown ── */
+.nav-dropdown-wrap{position:relative}
+.nav-dropdown-trigger{display:flex;align-items:center;gap:8px;background:none;border:1px solid var(--bd);border-radius:9999px;padding:4px 10px 4px 4px;cursor:pointer;color:var(--tx);transition:background .15s}
+.nav-dropdown-trigger:hover{background:var(--bg-hover)}
+.nav-avatar-sm{width:26px;height:26px;border-radius:50%;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-avatar-sm--lg{width:36px;height:36px;font-size:15px}
+.nav-dropdown-name{font-size:13px;font-weight:500;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nav-dropdown-chevron{transition:transform .2s;color:var(--tx-d)}
+.nav-dropdown-chevron--open{transform:rotate(180deg)}
+.nav-dropdown-menu{position:absolute;top:calc(100% + 8px);right:0;width:220px;background:var(--bg);border:1px solid var(--bd);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:200;overflow:hidden;animation:dropdown-in .12s ease}
+@keyframes dropdown-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.nav-dropdown-header{display:flex;align-items:center;gap:10px;padding:14px 14px 12px}
+.nav-dropdown-user{margin:0;font-size:13px;font-weight:600;color:var(--tx)}
+.nav-dropdown-email{margin:2px 0 0;font-size:11px;color:var(--tx-d);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nav-dropdown-divider{height:1px;background:var(--bd);margin:2px 0}
+.nav-dropdown-item{display:flex;align-items:center;gap:10px;width:100%;padding:9px 14px;background:none;border:none;font-size:13px;color:var(--tx);cursor:pointer;text-align:left;transition:background .12s}
+.nav-dropdown-item:hover{background:var(--bg-hover)}
+.nav-dropdown-item--danger{color:#ef4444}
+.nav-dropdown-item--danger:hover{background:#ef44441a}
+
+/* ── My Agents page ── */
+.my-agents-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.my-agents-empty{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:24px;background:var(--bg-soft);border:1px solid var(--bd);border-radius:14px}
+
+/* ── Profile page layout ── */
+.profile-top{display:flex;gap:24px;align-items:flex-start;margin-bottom:24px}
+.profile-avatar-col{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:100px}
+.profile-avatar-name{margin:6px 0 0;font-size:14px;font-weight:600;color:var(--tx);text-align:center}
+.profile-avatar-handle{margin:0;font-size:12px;color:var(--tx-d);text-align:center}
+.profile-fields-col{flex:1;display:flex;flex-direction:column;gap:10px}
+.profile-row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.profile-meta{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px}
+.profile-meta-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--tx-d)}
+.profile-avatar-section{border-top:1px solid var(--bd);padding-top:20px;margin-top:4px}
+
+/* ── Avatar picker ── */
+.avatar-picker{background:var(--bg-soft);border:1px solid var(--bd);border-radius:10px;overflow:hidden}
+.avatar-picker-tabs{display:flex;border-bottom:1px solid var(--bd)}
+.avatar-picker-tab{flex:1;padding:9px;background:none;border:none;font-size:13px;font-weight:500;color:var(--tx-d);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s}
+.avatar-picker-tab--active{color:var(--tx);border-bottom-color:var(--tx)}
+.avatar-picker-icons{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;padding:12px}
+.avatar-icon-btn{background:none;border:2px solid transparent;border-radius:8px;font-size:22px;padding:4px;cursor:pointer;line-height:1;transition:border-color .12s,background .12s}
+.avatar-icon-btn:hover{background:var(--bg-hover)}
+.avatar-icon-btn--active{border-color:var(--tx);background:var(--bg-hover)}
+.avatar-picker-photo{display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px}
+.avatar-upload-btn{display:flex;align-items:center;gap:8px;padding:9px 18px;border:1px dashed var(--bd);border-radius:8px;background:none;color:var(--tx);font-size:13px;font-weight:500;cursor:pointer;transition:background .15s}
+.avatar-upload-btn:hover{background:var(--bg-hover)}
+.avatar-upload-hint{margin:0;font-size:11px;color:var(--tx-d)}
+.avatar-remove-btn{background:none;border:none;font-size:12px;color:#ef4444;cursor:pointer;padding:0}
+.avatar-remove-btn:hover{text-decoration:underline}
+.avatar-picker-color{padding:14px 16px}
+.avatar-color-swatches{display:flex;gap:8px;flex-wrap:wrap}
+.avatar-color-swatch{width:28px;height:28px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:transform .12s}
+.avatar-color-swatch:hover{transform:scale(1.15)}
+.avatar-color-swatch--active{border-color:var(--tx)}
+
+/* ── Password section ── */
+.account-pw-header{display:flex;align-items:center;justify-content:space-between}
+
+/* ── Auth form fields ── */
+.auth-row-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.auth-field{display:flex;flex-direction:column;gap:4px}
+.input--error{border-color:#ef4444 !important;outline-color:#ef4444}
+.input--ok{border-color:#22c55e !important;outline-color:#22c55e}
+.auth-field-error{margin:0;font-size:12px;color:#ef4444}
+.auth-field-ok{margin:0;font-size:12px;color:#22c55e}
+
+/* ── Password strength ── */
+.pw-strength{display:flex;align-items:center;gap:8px;margin-top:2px}
+.pw-strength-bars{display:flex;gap:3px;flex:1}
+.pw-strength-bar{flex:1;height:3px;border-radius:9999px;background:var(--bd);transition:background .25s}
+.pw-strength-label{font-size:11px;font-weight:600;min-width:64px;text-align:right;transition:color .25s}
+
+/* ── Password rules checklist ── */
+.pw-rules{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:3px}
+.pw-rule{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--tx-d);transition:color .2s}
+.pw-rule--ok{color:#22c55e}
+.pw-rule-icon{font-size:10px;width:12px;text-align:center;flex-shrink:0}
+
+/* ── Forgot password / reset ── */
+.auth-extras{display:flex;align-items:center;justify-content:space-between;margin-top:2px}
+.auth-remember{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--tx-d);cursor:pointer;user-select:none}
+.auth-remember input[type=checkbox]{accent-color:var(--accent);cursor:pointer}
+.auth-forgot-desc{margin:0 0 12px;font-size:13px;color:var(--tx-d)}
+.auth-forgot-sent{display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center;padding:8px 0}
+.auth-forgot-sent p{margin:0;font-size:14px;color:var(--tx-d);line-height:1.5}
+
+/* ── Auth status pages (verify-email, reset-password) ── */
+.auth-page-centered{display:flex;align-items:center;justify-content:center;min-height:70vh}
+.auth-status-card{display:flex;flex-direction:column;align-items:center;gap:12px;padding:40px 32px;border:1px solid var(--bd);border-radius:16px;background:var(--bg-soft);max-width:420px;text-align:center}
+.auth-status-card h1{margin:0;font-size:22px}
+.auth-status-card p{margin:0;font-size:14px;color:var(--tx-d)}
+.auth-status-card--success .auth-status-icon{color:#22c55e}
+.auth-status-card--error .auth-status-icon{color:#ef4444}
+.auth-status-icon{font-size:40px;font-weight:700}
+.auth-reset-card{width:100%;max-width:400px;display:flex;flex-direction:column;gap:14px}
+.auth-reset-card h1{margin:0;font-size:22px}
+.btn-primary-link{display:inline-block;padding:10px 20px;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;margin-top:4px}
+
+/* ── Email verification banner ── */
+.email-banner{position:fixed;bottom:0;left:0;right:0;z-index:9000;display:flex;align-items:center;gap:10px;padding:12px 20px;background:#92400e;color:#fef3c7;font-size:13px;font-weight:500}
+.email-banner-btn{margin-left:auto;padding:5px 14px;border:1px solid #fef3c7;border-radius:6px;background:transparent;color:#fef3c7;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+.email-banner-btn:hover{background:rgba(255,255,255,.15)}
+.email-banner-dismiss{background:none;border:none;color:#fef3c7;cursor:pointer;padding:0 4px;opacity:.7;font-size:14px}
+.email-banner-dismiss:hover{opacity:1}
+
+/* ── Sessions list ── */
+.sessions-list{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.session-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border:1px solid var(--bd);border-radius:8px;background:var(--bg-soft)}
+.session-info{display:flex;flex-direction:column;gap:2px;min-width:0}
+.session-device{font-size:13px;font-weight:500;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:400px}
+.session-meta{font-size:11px;color:var(--tx-d)}
+.session-revoke-btn{padding:4px 12px;border:1px solid var(--bd);border-radius:6px;background:transparent;color:var(--tx-d);font-size:12px;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.session-revoke-btn:hover{border-color:#ef4444;color:#ef4444}
+
+/* ── Account verify message ── */
+.account-verify-msg{margin:0 0 12px;font-size:14px;color:var(--tx-d);line-height:1.5}

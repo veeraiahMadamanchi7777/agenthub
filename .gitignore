@@ -1,6 +1,7 @@
 node_modules
 dist
 .DS_Store
+data/
 .cursor/whatsapp.env
 .cursor/whatsapp-bridge/auth/
 .cursor/whatsapp-bridge/inbox/

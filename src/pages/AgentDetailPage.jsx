@@ -20,7 +20,8 @@ export function AgentDetailPage() {
   const a = agents.find((x) => x.slug === slug);
   const { summary, loading: lr } = useReadme(slug, a);
   usePageTitle(a?.name);
-  const { requireAuth, authed, setEditAgent } = useAuth();
+  const { requireAuth, user, setEditAgent } = useAuth();
+  const isOwner = user && a && user.id === a.authorId;
   const { openBoot } = useBoot();
   const nav = useNavigate();
 
@@ -54,7 +55,7 @@ export function AgentDetailPage() {
         <div className="flex-row">
           <PrimaryBtn onClick={() => requireAuth(() => openBoot(a))} disabled={!a.runnable}>Run agent</PrimaryBtn>
           <Link to={`/library/${slug}`}><GhostBtn>View docs</GhostBtn></Link>
-          {authed && <GhostBtn onClick={() => setEditAgent(a)}>Edit</GhostBtn>}
+          {isOwner && <GhostBtn onClick={() => setEditAgent(a)}>Edit</GhostBtn>}
           <GhostBtn onClick={() => nav('/')}>← Back</GhostBtn>
         </div>
       </div>
